@@ -1,5 +1,7 @@
 import com.company.Player;
 
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args){
@@ -18,13 +20,22 @@ public class Main {
         {
             String playerFirstName = "Firstname"+i;
             String playerSurName = "Surname"+i;
-            int playerAge = 21+i;
-            playerArray[i] = new Player(playerFirstName,playerSurName,playerAge);
+            int playerAge = 0;
+            //int playerAge = 21+i;
 
+            //int playerAge = ((int) (Math.random() * 80));
+
+
+            //playerArray[i] = new Player(playerFirstName,playerSurName,playerAge);
+            playerArray[i] = new Player(playerFirstName,playerSurName,playerAge);
         }
         for (Player thePlayer: playerArray) {
-            System.out.println(thePlayer.firstName + " " + thePlayer.lastName + " " + thePlayer.age);                    ;
 
+            Random rAge = new Random();
+
+            thePlayer.age= rAge.nextInt(80);
+
+            System.out.println(thePlayer.firstName + " " + thePlayer.lastName + " " + thePlayer.age);                    ;
         }
     }
 }
