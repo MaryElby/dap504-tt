@@ -33,12 +33,15 @@ public class Round {
         boolean goodChoice2 = false;
         int player1=0;
         int player2=0;
-        for (int i=1;i< numPairs;i++)
+        //for (int i=1;i< numPairs;i++)
+        int countPairs=0;
+        while (countPairs < numPairs)
         {
             goodChoice1 = false;
             while (goodChoice1 ==false)
             {
-                player1 = (int) (Math.random() * numPlayers - 1);
+                //player1 = (int) (Math.random() * numPlayers - 1);
+                player1 = (int) (Math.random() * numPlayers );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
                     //System.out.println("better pick again, this player has already been removed");
@@ -58,7 +61,7 @@ public class Round {
             goodChoice2 = false;
             while (goodChoice2 ==false)
             {
-                player2 = (int) (Math.random() * numPlayers - 1);
+                player2 = (int) (Math.random() * numPlayers) ;
 
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
@@ -99,6 +102,9 @@ public class Round {
 ////            System.out.println("The player "+ i+" is " + playersList.get(i).firstName + " " +  playersList.get(i).lastName + " " + playersList.get(i).hashCode());
 ////
 ////        }*/
+
+            //System.out.println("picked " + countPairs + " pairs");
+            countPairs+=1;
         }
         System.out.println("so now we have " + thisRoundWinners.getSize());
         return thisRoundWinners;

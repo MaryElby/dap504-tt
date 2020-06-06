@@ -20,6 +20,10 @@ public class Main {
             Round thisRound = new Round(thePlayers,i+1);
             thePlayers=thisRound.doPairing(thePlayers);
         }
+        //once that is done we should know who the winner of the tournament is
+        Player testPlayer = thePlayers.playersList.get(0);
+        System.out.println("And the winner is ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.hashCode());
+
         //tournament of 8 players
         //create a player object to test
         //Player player1 = new Player("Arthur","Atkinson");

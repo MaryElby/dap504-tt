@@ -6,7 +6,7 @@ import java.util.List;
 public class PlayersList {
     int numberOfPlayers;
 
-    List<Player> playersList = new ArrayList<Player>();
+    public List<Player> playersList = new ArrayList<Player>();
     public PlayersList(int numberOfRounds) {
         this.numberOfPlayers = numberOfRounds;
 
@@ -53,4 +53,6 @@ public void removePlayer(int playerToGo){
     public int getSize() {
         return this.playersList.size();
     }
+
+
 }
