@@ -34,4 +34,7 @@ public class Match {
     }
 
 
+    public Player setLoser() {
+        return player2;
+    }
 }
