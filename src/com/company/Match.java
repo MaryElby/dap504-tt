@@ -11,10 +11,7 @@ public class Match {
 
         public Player setWinner() {
 
-            Player winner;
-            //return winner;
-
-            return player1;
+            return player2;
         }
 
         public Player getPlayer1() {
@@ -35,6 +32,11 @@ public class Match {
 
 
     public Player setLoser() {
-        return player2;
+        return player1;
+    }
+
+    public void getWinnerAndLoser(Player winner, Player loser){
+        winner = this.player2;
+        loser = this.player1;
     }
 }

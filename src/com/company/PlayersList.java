@@ -63,12 +63,12 @@ public class PlayersList {
 
             for (int i = 0; i < numberOfPlayers; i++) {
                 ReadJson readJson = data[i];
-                System.out.println(readJson.getFirstName() + " " + readJson.getLastName());
+                //System.out.println(readJson.getFirstName() + " " + readJson.getLastName());
                 playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), 0));
             }
-            for (Player thePlayer : playersList) {
-                System.out.println("first name (in_list) = " + thePlayer.firstName);
-            }
+//            for (Player thePlayer : playersList) {
+//                System.out.println("first name (in_list) = " + thePlayer.firstName);
+//            }
     }
     public void addPlayer(Player thePlayer){
         playersList.add(thePlayer);

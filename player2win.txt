@@ -1,0 +1,126 @@
+Number of players = 16
+final count of Rounds 4
+Round 1 We have 16 so that's 8 pairs
+player 0 is Keven Bondy 874088044
+player 1 is Ninnetta Amberly 353842779
+player 2 is Matty Adelaide 1338823963
+player 3 is Lon Patty 1156060786
+player 4 is Denise Darnell 1612799726
+player 5 is Christiano Fidelia 1286084959
+player 6 is Danette Lloyd 1709537756
+player 7 is Hinze Quent 1639622804
+player 8 is Koralle Claudian 184966243
+player 9 is Corrie Cody 124313277
+player 10 is Elset Pail 1225616405
+player 11 is Loralyn Sadye 2101842856
+player 12 is Lynsey Costa 1151020327
+player 13 is Kellie Rob 88579647
+player 14 is Orelia Gwendolin 654845766
+player 15 is Abbie Guglielmo 1712536284
+
+Picked players 4 and 11
+Player going through to next round is 11
+Player being knocked out is 4
+The player Loralyn Sadye won the match 
+The player Denise Darnell is going home 
+
+Picked players 5 and 15
+Player going through to next round is 15
+Player being knocked out is 5
+The player Abbie Guglielmo won the match 
+The player Christiano Fidelia is going home 
+
+Picked players 10 and 9
+Player going through to next round is 9
+Player being knocked out is 10
+The player Corrie Cody won the match 
+The player Elset Pail is going home 
+
+Picked players 0 and 1
+Player going through to next round is 1
+Player being knocked out is 0
+The player Ninnetta Amberly won the match 
+The player Keven Bondy is going home 
+
+Picked players 14 and 8
+Player going through to next round is 8
+Player being knocked out is 14
+The player Koralle Claudian won the match 
+The player Orelia Gwendolin is going home 
+
+Picked players 2 and 12
+Player going through to next round is 12
+Player being knocked out is 2
+The player Lynsey Costa won the match 
+The player Matty Adelaide is going home 
+
+Picked players 3 and 6
+Player going through to next round is 6
+Player being knocked out is 3
+The player Danette Lloyd won the match 
+The player Lon Patty is going home 
+
+Picked players 7 and 13
+Player going through to next round is 13
+Player being knocked out is 7
+The player Kellie Rob won the match 
+The player Hinze Quent is going home 
+so now we have 8
+	Round 2 We have 8 so that's 4 pairs
+	player 0 is Loralyn Sadye 2101842856
+	player 1 is Abbie Guglielmo 1712536284
+	player 2 is Corrie Cody 124313277
+	player 3 is Ninnetta Amberly 353842779
+	player 4 is Koralle Claudian 184966243
+	player 5 is Lynsey Costa 1151020327
+	player 6 is Danette Lloyd 1709537756
+	player 7 is Kellie Rob 88579647
+	Picked players 1 and 7
+	Player going through to next round is 7
+	Player being knocked out is 1
+	The player Kellie Rob won the match 
+	The player Abbie Guglielmo is going home 
+	Picked players 5 and 0
+	Player going through to next round is 0
+	Player being knocked out is 5
+	The player Loralyn Sadye won the match 
+	The player Lynsey Costa is going home 
+	Picked players 4 and 2
+	Player going through to next round is 2
+	Player being knocked out is 4
+	The player Corrie Cody won the match 
+	The player Koralle Claudian is going home 
+	Picked players 6 and 3
+	Player going through to next round is 3
+	Player being knocked out is 6
+	The player Ninnetta Amberly won the match 
+	The player Danette Lloyd is going home 
+		so now we have 4
+		Round 3 We have 4 so that's 2 pairs
+		player 0 is Kellie Rob 88579647
+		player 1 is Loralyn Sadye 2101842856
+		player 2 is Corrie Cody 124313277
+		player 3 is Ninnetta Amberly 353842779
+		Picked players 1 and 0
+		Player going through to next round is 0
+		Player being knocked out is 1
+		The player Kellie Rob won the match 
+		The player Loralyn Sadye is going home 
+		Picked players 2 and 3
+		Player going through to next round is 3
+		Player being knocked out is 2
+		The player Ninnetta Amberly won the match 
+		The player Corrie Cody is going home 
+		so now we have 2
+			Round 4 We have 2 so that's 1 pairs
+			player 0 is Kellie Rob 88579647
+			player 1 is Ninnetta Amberly 353842779
+			Picked players 1 and 0
+			Player going through to next round is 0
+			Player being knocked out is 1
+			The player Kellie Rob won the match 
+			The player Ninnetta Amberly is going home 
+			so now we have 1
+				And the winner is <drum roll please> ... Kellie Rob 88579647
+
+Process finished with exit code 0

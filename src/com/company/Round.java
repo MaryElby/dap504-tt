@@ -15,6 +15,9 @@ public class Round {
     public Round(PlayersList thePlayers,int RoundNumber) {
         this.roundNumber = RoundNumber;
     }
+
+
+
     public PlayersList doPairing(PlayersList thePlayers){
         int numPlayers = thePlayers.getNumberOfPlayers();
         int numPairs = numPlayers /2;
@@ -88,10 +91,28 @@ public class Round {
 
             Match theMatch = new Match(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
 
+
+            //theMatch.getWinnerAndLoser(theWinner, theLoser);
             Player theWinner = theMatch.setWinner();
+            int iWinner = thePlayers.playersList.indexOf(theWinner);
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
-            Player theLoser = theMatch.setLoser();
-            System.out.println("Player to be removed is " + thePlayers.playersList.indexOf(theLoser));
+            //Player theLoser = theMatch.setLoser();
+            Player theLoser;
+            if ( iWinner==player1) {
+                theLoser = theMatch.getPlayer2();
+            }
+            else{
+                theLoser = theMatch.getPlayer1();
+            }
+
+            System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
+
+            //int iLoser = thePlayers.playersList.indexOf(theLoser);
+            //int iWinner = thePlayers.playersList.indexOf(theWinner);
+            System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
+            System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
+            //System.out.println("The player " + thePlayers.playersList.get(iWinner).firstName + " " +  thePlayers.playersList.get(iWinner).lastName + " beat "+ thePlayers.playersList.get(iLoser).firstName + " " +  thePlayers.playersList.get(iLoser).lastName );
+            //System.out.println("The player " + thePlayers.playersList.get(iLoser).firstName + " " +  thePlayers.playersList.get(iLoser).lastName + " was knocked out of the tournament!");
 
             theLoser.setActive(false);
             //thePlayers.removePlayer(thePlayers.playersList.indexOf(theLoser));
@@ -109,17 +130,5 @@ public class Round {
         System.out.println("so now we have " + thisRoundWinners.getSize());
         return thisRoundWinners;
     }
-    //Player theWinner = inPlayers.playersList.get(4);
 
-//        System.out.println("we will keep " + playersList.indexOf(theWinner));
-//
-//        int playerToRemove = playersList.indexOf(theWinner);
-//        System.out.println("removing " + playerToRemove);
-//
-//        playersList.remove(playerToRemove);
-//
-//        for (int i=0;i< this.playersList.size();i++){
-//            System.out.println("The player "+ i+" is " + playersList.get(i).firstName + " " +  playersList.get(i).lastName + " " + playersList.get(i).hashCode());
-//
-//        }
 }
