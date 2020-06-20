@@ -11,7 +11,7 @@ public class Match {
 
         public Player setWinner() {
 
-            return player2;
+            return player1;
         }
 
         public Player getPlayer1() {

@@ -18,7 +18,7 @@ public class Round {
 
 
 
-    public PlayersList doPairing(PlayersList thePlayers){
+    public PlayersList doPairing(PlayersList thePlayers,PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
         int numPairs = numPlayers /2;
         System.out.println("Round " + this.roundNumber +" We have " + numPlayers + " so that's " + numPairs + " pairs");
@@ -43,20 +43,30 @@ public class Round {
             goodChoice1 = false;
             while (goodChoice1 ==false)
             {
-                //player1 = (int) (Math.random() * numPlayers - 1);
+                //pick a random element from the player array.
+                //if the player has not already been chosen or knocked out
+                //then they are selected for the pairing
+                //also we screen out the dummy players from the player1 selection
+                //to avoid having two dummy players drawn against each other
                 player1 = (int) (Math.random() * numPlayers );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
-                    //System.out.println("better pick again, this player has already been removed");
+                    System.out.println("better pick again, this player has already been removed");
                 } else {
                     if (thePlayers.playersList.get(player1).roundReached == this.roundNumber) {
                         //System.out.println("better pick again, this player has already been picked for this round");
                     } else {
-                        //System.out.println("this number is free, let's use it");
-                        goodChoice1 = true;
-                        Player myPlayer = thePlayers.playersList.get(player1);
-                        myPlayer.setRoundReached(this.roundNumber);
-                        //System.out.println(myPlayer.roundReached);
+                        //don't allow dummy player in the player1 slot.  this stops dummy players being drawn against each other.
+                        if (thePlayers.playersList.get(player1).dummy==true){
+                            //System.out.println("dummy player, better pick again");
+                        }
+                        else {
+                            //System.out.println("this number is free, let's use it");
+                            goodChoice1 = true;
+                            Player myPlayer = thePlayers.playersList.get(player1);
+                            myPlayer.setRoundReached(this.roundNumber);
+                            //System.out.println(myPlayer.roundReached);
+                        }
                     }
                 }
             }
@@ -64,6 +74,10 @@ public class Round {
             goodChoice2 = false;
             while (goodChoice2 ==false)
             {
+                //much the same as player1 selection except that dummy players can be selected as player2
+                //pick a random element from the player array.
+                //if the player has not already been chosen or knocked out
+                //then they are selected for the pairing
                 player2 = (int) (Math.random() * numPlayers) ;
 
                 if (thePlayers.playersList.get(player2).isActive() == false)
@@ -83,6 +97,7 @@ public class Round {
                         Player myPlayer = thePlayers.playersList.get(player2);
                         myPlayer.setRoundReached(this.roundNumber);
                         //System.out.println(myPlayer.roundReached);
+
                     }
                 }
             }
@@ -92,7 +107,7 @@ public class Round {
             Match theMatch = new Match(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
 
 
-            //theMatch.getWinnerAndLoser(theWinner, theLoser);
+
             Player theWinner = theMatch.setWinner();
             int iWinner = thePlayers.playersList.indexOf(theWinner);
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
@@ -106,16 +121,13 @@ public class Round {
             }
 
             System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
+            masterList.SetLoser(masterList,theLoser,this.roundNumber);
 
-            //int iLoser = thePlayers.playersList.indexOf(theLoser);
-            //int iWinner = thePlayers.playersList.indexOf(theWinner);
             System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
             System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
-            //System.out.println("The player " + thePlayers.playersList.get(iWinner).firstName + " " +  thePlayers.playersList.get(iWinner).lastName + " beat "+ thePlayers.playersList.get(iLoser).firstName + " " +  thePlayers.playersList.get(iLoser).lastName );
-            //System.out.println("The player " + thePlayers.playersList.get(iLoser).firstName + " " +  thePlayers.playersList.get(iLoser).lastName + " was knocked out of the tournament!");
 
-            theLoser.setActive(false);
-            //thePlayers.removePlayer(thePlayers.playersList.indexOf(theLoser));
+            //theLoser.setActive(false);
+
 
             thisRoundWinners.addPlayer(theWinner);
 ////
@@ -128,6 +140,7 @@ public class Round {
             countPairs+=1;
         }
         System.out.println("so now we have " + thisRoundWinners.getSize());
+
         return thisRoundWinners;
     }
 

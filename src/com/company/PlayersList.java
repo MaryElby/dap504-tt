@@ -20,35 +20,11 @@ public class PlayersList {
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
-    public void removePlayer(int playerToGo){
-        this.playersList.remove(playerToGo);
-}
+    public void removePlayer(int playerToGo){        this.playersList.remove(playerToGo);}
     public void setInactive(int playerToSet){
         this.playersList.get(playerToSet).setActive(false);
     }
-    public void createListOfPlayers(){
 
-        for (int i = 0; i < this.numberOfPlayers; i++) {
-            playersList.add( new Player("Bob","Smith"+i,0));
-        }
-//        for (int i=0;i< this.playersList.size();i++){
-//            System.out.println("The player "+ i+" is " + playersList.get(i).firstName + " " +  playersList.get(i).lastName+ " " + playersList.get(i).hashCode());
-//
-//        }
-//        Player theWinner = playersList.get(4);
-
-//        System.out.println("we will keep " + playersList.indexOf(theWinner));
-//
-//        int playerToRemove = playersList.indexOf(theWinner);
-//        System.out.println("removing " + playerToRemove);
-//
-//        playersList.remove(playerToRemove);
-//
-//        for (int i=0;i< this.playersList.size();i++){
-//            System.out.println("The player "+ i+" is " + playersList.get(i).firstName + " " +  playersList.get(i).lastName + " " + playersList.get(i).hashCode());
-//
-//        }
-    }
     public void createPlayerList(int numberOfPlayers) throws FileNotFoundException {
 
 
@@ -64,11 +40,11 @@ public class PlayersList {
             for (int i = 0; i < numberOfPlayers; i++) {
                 ReadJson readJson = data[i];
                 //System.out.println(readJson.getFirstName() + " " + readJson.getLastName());
-                playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), 0));
+                playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), i));
             }
-//            for (Player thePlayer : playersList) {
-//                System.out.println("first name (in_list) = " + thePlayer.firstName);
-//            }
+            for (Player thePlayer : playersList) {
+                System.out.println("first name (in_list) = " + thePlayer.firstName);
+            }
     }
     public void addPlayer(Player thePlayer){
         playersList.add(thePlayer);
@@ -79,5 +55,36 @@ public class PlayersList {
         return this.playersList.size();
     }
 
+    public void addByes(int numberOfPlayers,int numberOfByes){
+        for (int i = 0; i < numberOfByes; i++) {
 
+            //add in a dummy player to the list
+            playersList.add(new Player(numberOfPlayers+i));
+        }
+    }
+
+    public void writePlayersResults(PlayersList thePlayers){
+            for (int i=0;i< thePlayers.getSize();i++){
+                Player thisPlayer = thePlayers.playersList.get(i);
+                System.out.println("The player "+ i+" is " + thisPlayer.firstName + " " + thisPlayer.lastName + " reached round "+ thisPlayer.roundReached);
+
+            }
+    }
+
+
+    public void SetLoser(PlayersList masterList, Player theLoser, int theRound) {
+        Player thePlayer;
+
+
+        for (int i=0;i< masterList.getSize();i++             )
+        {
+            thePlayer = masterList.playersList.get(i);
+            if (thePlayer.playerID == theLoser.playerID) {
+            //we have found the player in the master list
+                thePlayer.setRoundReached(theRound);
+                System.out.println("set round reached for " + thePlayer.getFirstName() + " to " + theRound);
+
+            }
+        }
+    }
 }

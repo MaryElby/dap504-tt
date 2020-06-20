@@ -3,9 +3,10 @@ package com.company;
 public class Player {
 
     public String firstName,lastName;
-    public int age =0;
+    public int playerID =0;
     public boolean active=true;
     public int roundReached=0;
+    public boolean dummy=false;
 
     public int getRoundReached() {
         return roundReached;
@@ -27,10 +28,20 @@ public class Player {
 
 
 
-    public Player(String firstName, String lastName, int age) {
+    public Player(String firstName, String lastName, int id) {
+        //this is the constructor for a normal (real) player
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.playerID = id;
+        this.dummy= false;
+    }
+
+    public Player(int id) {
+        //this is the constructor for a dummy player that acts as a bye for the real player
+        this.firstName="Bye";
+        this.lastName="Bye";
+        this.playerID=id;
+        this.dummy=true;
     }
 
     public String getLastName() {
