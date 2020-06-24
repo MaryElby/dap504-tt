@@ -35,6 +35,7 @@ public class Main {
         Player testPlayer = thePlayers.playersList.get(0);
         System.out.println("And the winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.playerID + " " + testPlayer.hashCode());
         //testPlayer.setRoundReached(numberOfRounds);
+        //set winner's round reached otherwise it stays at 0
         masterList.SetLoser(masterList,testPlayer,numberOfRounds+1);
 
         masterList.writePlayersResults(masterList);

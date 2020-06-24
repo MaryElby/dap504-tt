@@ -103,8 +103,18 @@ public class Round {
             }
 
             System.out.println("Picked players "+ player1 + " and "+ player2);
-
-            Match theMatch = new Match(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
+            //need to declare the match here because a different object will be instantiated depending on whether
+            //there is a dummy player drawn for the match
+            Match theMatch;
+            if (thePlayers.playersList.get(player2).dummy==true){
+                //use the fixed match child class so that the match is not played
+                //player1 gets a bye
+                 theMatch = new FixedMatch(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
+            }
+            else {
+                //2 ordinary players - run a proper match for them
+                 theMatch = new Match(thePlayers.playersList.get(player1), thePlayers.playersList.get(player2));
+            }
 
 
 
