@@ -117,7 +117,8 @@ public class Round {
             }
 
 
-
+            //Set statuses for the players
+            //Should this be in the match class?
             Player theWinner = theMatch.setWinner();
             int iWinner = thePlayers.playersList.indexOf(theWinner);
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
@@ -130,15 +131,16 @@ public class Round {
                 theLoser = theMatch.getPlayer1();
             }
 
+            //Set the round reached in the master list for the player who lost
             System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
             masterList.SetLoser(masterList,theLoser,this.roundNumber);
 
-            System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
-            System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
+            //System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
+            //System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
 
             //theLoser.setActive(false);
 
-
+            //Add the winner to the list for the next round
             thisRoundWinners.addPlayer(theWinner);
 ////
 ////        for (int i=0;i< this.playersList.size();i++){

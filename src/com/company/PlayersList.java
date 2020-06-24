@@ -42,9 +42,9 @@ public class PlayersList {
                 //System.out.println(readJson.getFirstName() + " " + readJson.getLastName());
                 playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), i));
             }
-            for (Player thePlayer : playersList) {
-                System.out.println("first name (in_list) = " + thePlayer.firstName);
-            }
+//            for (Player thePlayer : playersList) {
+//                System.out.println("first name (in_list) = " + thePlayer.firstName);
+//            }
     }
     public void addPlayer(Player thePlayer){
         playersList.add(thePlayer);
@@ -66,7 +66,7 @@ public class PlayersList {
     public void writePlayersResults(PlayersList thePlayers){
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
-                System.out.println("The player "+ i+" is " + thisPlayer.firstName + " " + thisPlayer.lastName + " reached round "+ thisPlayer.roundReached);
+                System.out.println("The player "+ i+" - " + thisPlayer.firstName + " " + thisPlayer.lastName + " reached round "+ thisPlayer.roundReached);
 
             }
     }

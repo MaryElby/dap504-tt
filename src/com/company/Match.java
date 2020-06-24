@@ -10,7 +10,10 @@ public class Match {
     }
 
         public Player setWinner() {
-
+            Player theWinner = player1;
+            Player theLoser = player2;
+            System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
+            System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
             return player1;
         }
 
