@@ -20,7 +20,8 @@ public class Round {
 
     public PlayersList doPairing(PlayersList thePlayers,PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
-        int numPairs = numPlayers /2;
+        int numByes= thePlayers.getNumberOfByes();
+        int numPairs = thePlayers.getSize() /2;
         System.out.println("Round " + this.roundNumber +" We have " + numPlayers + " so that's " + numPairs + " pairs");
         for (int i=0;i< thePlayers.getSize();i++){
             Player testPlayer = thePlayers.playersList.get(i);
@@ -38,6 +39,7 @@ public class Round {
         int player2=0;
         //for (int i=1;i< numPairs;i++)
         int countPairs=0;
+        int countByes=0;
         while (countPairs < numPairs)
         {
             goodChoice1 = false;
@@ -48,7 +50,7 @@ public class Round {
                 //then they are selected for the pairing
                 //also we screen out the dummy players from the player1 selection
                 //to avoid having two dummy players drawn against each other
-                player1 = (int) (Math.random() * numPlayers );
+                player1 = (int) (Math.random() * thePlayers.getSize() );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
                     System.out.println("better pick again, this player has already been removed");
@@ -78,7 +80,7 @@ public class Round {
                 //pick a random element from the player array.
                 //if the player has not already been chosen or knocked out
                 //then they are selected for the pairing
-                player2 = (int) (Math.random() * numPlayers) ;
+                player2 = (int) (Math.random() * thePlayers.getSize()) ;
 
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
@@ -92,17 +94,38 @@ public class Round {
                     }
                     else
                     {
-                        //System.out.println("this number is free, let's use it");
-                        goodChoice2 = true;
-                        Player myPlayer = thePlayers.playersList.get(player2);
-                        myPlayer.setRoundReached(this.roundNumber);
-                        //System.out.println(myPlayer.roundReached);
+                        //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
+                        //otherwise on the last pairing there will be 2 dummies left and they can't play each other since neither can be player1
+                        //causes a perpetual loop
+                        if (numPairs - countPairs <= thePlayers.getNumberOfByes() && (countByes< (thePlayers.getNumberOfByes()) && thePlayers.playersList.get(player2).dummy == false))
+                        {
+                             //reject the real player
+                            System.out.println("need to make sure we have a dummy player");
+                        }
+                        else
+                        {
+                            //System.out.println("this number is free, let's use it");
+                            goodChoice2 = true;
+                            Player myPlayer = thePlayers.playersList.get(player2);
+                            myPlayer.setRoundReached(this.roundNumber);
+                            //System.out.println(myPlayer.roundReached);
+                            //Add 1 to the local count of dummy players paired
+                            if (myPlayer.dummy){
+                                countByes++;
+                            }
+
+                        }
 
                     }
-                }
-            }
 
-            System.out.println("Picked players "+ player1 + " and "+ player2);
+                }
+
+            }
+            ///Add 1 to the local count of pairs created
+            countPairs++;
+            System.out.println("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
+            //System.out.println("Count of Pairs is now " + countPairs);
+
             //need to declare the match here because a different object will be instantiated depending on whether
             //there is a dummy player drawn for the match
             Match theMatch;
@@ -132,7 +155,7 @@ public class Round {
             }
 
             //Set the round reached in the master list for the player who lost
-            System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
+            //System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
             masterList.SetLoser(masterList,theLoser,this.roundNumber);
 
             //System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
@@ -149,7 +172,7 @@ public class Round {
 ////        }*/
 
             //System.out.println("picked " + countPairs + " pairs");
-            countPairs+=1;
+            //countPairs+=1;
         }
         System.out.println("so now we have " + thisRoundWinners.getSize());
 

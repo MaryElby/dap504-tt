@@ -10,6 +10,17 @@ import java.util.List;
 
 public class PlayersList {
     int numberOfPlayers;
+    int numberOfByes;
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public void setNumberOfByes(int numberOfByes) {
+        this.numberOfByes = numberOfByes;
+    }
+
+
 
     public List<Player> playersList = new ArrayList<Player>();
     public PlayersList(int numberOfRounds) {
@@ -17,9 +28,7 @@ public class PlayersList {
 
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
+    //moved further down for readability public int getNumberOfPlayers() {        return numberOfPlayers;    }
     public void removePlayer(int playerToGo){        this.playersList.remove(playerToGo);}
     public void setInactive(int playerToSet){
         this.playersList.get(playerToSet).setActive(false);
@@ -82,9 +91,17 @@ public class PlayersList {
             if (thePlayer.playerID == theLoser.playerID) {
             //we have found the player in the master list
                 thePlayer.setRoundReached(theRound);
-                System.out.println("set round reached for " + thePlayer.getFirstName() + " to " + theRound);
+                //System.out.println("set round reached for " + thePlayer.getFirstName() + " to " + theRound);
 
             }
         }
+    }
+
+    public int getNumberOfByes() {
+        return (this.numberOfByes);
+    }
+
+    public int getNumberOfPlayers() {
+        return (this.numberOfPlayers);
     }
 }

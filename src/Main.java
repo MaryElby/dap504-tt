@@ -20,9 +20,12 @@ public class Main {
         //thePlayers.createListOfPlayers();
         thePlayers.createPlayerList(numberOfPlayers);
         thePlayers.addByes(numberOfPlayers,numberOfByes);
+        thePlayers.setNumberOfByes(numberOfByes);
+        thePlayers.setNumberOfPlayers(numberOfPlayers);
 
         PlayersList masterList = new PlayersList(totalPlayers);
         masterList.createPlayerList(numberOfPlayers);
+        masterList.setNumberOfByes(numberOfByes);
         masterList.addByes(numberOfPlayers,numberOfByes);
 
 
