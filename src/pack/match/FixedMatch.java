@@ -1,4 +1,7 @@
-package com.company;
+package pack.match;
+
+import com.company.Player;
+import pack.match.Match;
 
 public class FixedMatch extends Match {
     public FixedMatch(Player player1, Player player2) {

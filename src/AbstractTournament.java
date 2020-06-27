@@ -11,7 +11,7 @@ this could be different depending on what type of tournament it is
 so every tournament can have its own unique method but they must implement it.
 for example a doubles tournament would have a different number of rounds than singles with the same number of players
 */
-    protected  double Prize;
+    protected  double prizePot;
     abstract int setNumberOfRounds(int numberOfPlayers);
 
     //a concrete method to present the entire prize fund to the winner.  This could be overridden if different prize allocation is required.

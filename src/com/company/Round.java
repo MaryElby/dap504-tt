@@ -1,23 +1,22 @@
 package com.company;
 
-import java.util.List;
-import java.util.Random;
-
-import static java.lang.Math.*;
+import pack.match.FixedMatch;
+import pack.match.Match;
 
 public class Round {
-    public int roundNumber;
+    //encapsulating the round number as it is only used internally.  in fact, is only used for display purposes
+    private int roundNumber;
     //the Round class is responsible for creating pairings
     //for the matches within it.
     //It is passed a list of players and pairs them up
     //then sends each pair to a Match.  Returning a winner from each match as a list of players
 
-    public Round(PlayersList thePlayers,int RoundNumber) {
+    //constructor
+    public Round(int RoundNumber) {
         this.roundNumber = RoundNumber;
     }
 
-
-
+    //this is the heart of the Round object - to draw pairs from the list and send them off to matches
     public PlayersList doPairing(PlayersList thePlayers,PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
         int numByes= thePlayers.getNumberOfByes();
@@ -53,14 +52,14 @@ public class Round {
                 player1 = (int) (Math.random() * thePlayers.getSize() );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
-                    System.out.println("better pick again, this player has already been removed");
+                    System.out.println("better pick again, this player("+ player1 +") has already been eliminated");
                 } else {
                     if (thePlayers.playersList.get(player1).roundReached == this.roundNumber) {
-                        //System.out.println("better pick again, this player has already been picked for this round");
+                        System.out.println("better pick again, this player("+ player1 +") has already played this round");
                     } else {
                         //don't allow dummy player in the player1 slot.  this stops dummy players being drawn against each other.
                         if (thePlayers.playersList.get(player1).dummy==true){
-                            //System.out.println("dummy player, better pick again");
+                            System.out.println("dummy player("+ player1 +"), better pick again");
                         }
                         else {
                             //System.out.println("this number is free, let's use it");
@@ -82,22 +81,24 @@ public class Round {
                 //then they are selected for the pairing
                 player2 = (int) (Math.random() * thePlayers.getSize()) ;
 
+                //the active check is a quick way of showing if the selected player has already been eliminated.
+                //actually the roundReached also shows this
+                //but left it in in case we want to use it for, say, recording an injured player who doesn't lose but still can't play
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
-                    //System.out.println("better pick again, this player has already been removed");
+                    System.out.println("better pick again, this player ("+ player2 +") has already been removed");
                 }
                 else
                 {
                     if (thePlayers.playersList.get(player2).roundReached == this.roundNumber)
                     {
-                        //System.out.println("better pick again, this player has already been picked for this round");
+                        System.out.println("better pick again, this player("+ player2 +") has already played this round");
                     }
                     else
                     {
                         //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
                         //otherwise we will end up with 2 dummies left and they can't play each other since neither can be player1
                         //causes a perpetual loop
-                        //if (numPairs - countPairs <= thePlayers.getNumberOfByes() && (countByes< (thePlayers.getNumberOfByes()) && thePlayers.playersList.get(player2).dummy == false))
                         if ((numPairs - countPairs == thePlayers.getNumberOfByes() - countByes) && thePlayers.playersList.get(player2).dummy == false)
                         {
                              //reject the real player
@@ -162,7 +163,7 @@ public class Round {
             //System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
             //System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
 
-            //theLoser.setActive(false);
+            theLoser.setActive(false);
 
             //Add the winner to the list for the next round
             thisRoundWinners.addPlayer(theWinner);
