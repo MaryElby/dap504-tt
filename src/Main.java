@@ -1,6 +1,6 @@
 import com.company.Player;
 import com.company.PlayersList;
-import com.company.Round;
+import pack.match.Round;
 
 import java.io.FileNotFoundException;
 
@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         Tournament theTournament= new Tournament();
-        theTournament.prizePot = 1234.4256;
+        theTournament.prizePot = 12572.64256;
         int numberOfPlayers = 5;
 
         int numberOfByes = theTournament.GetNumberOfByes(numberOfPlayers);
@@ -35,13 +35,13 @@ public class Main {
         //once that is done we should know who the winner of the tournament is ... the only one left in the list
         Player testPlayer = thePlayers.playersList.get(0);
 
-        System.out.println("And the winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.playerID + " " + testPlayer.hashCode());
+        System.out.println("And the winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() + " " + testPlayer.hashCode());
         theTournament.presentPrize(testPlayer,theTournament.prizePot);
         //testPlayer.setRoundReached(numberOfRounds);
         //set winner's round reached otherwise it stays at 0
         masterList.SetLoser(masterList,testPlayer,numberOfRounds+1);
 
-        masterList.writePlayersResults(masterList);
+        masterList.writePlayersResults(0,masterList);
 
     }
 }

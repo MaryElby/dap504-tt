@@ -1,5 +1,8 @@
-package com.company;
+//moved this into the match package so that it could access the match's protected getplayer1 and getplayer2 methods
+package pack.match;
 
+import com.company.Player;
+import com.company.PlayersList;
 import pack.match.FixedMatch;
 import pack.match.Match;
 
@@ -17,14 +20,14 @@ public class Round {
     }
 
     //this is the heart of the Round object - to draw pairs from the list and send them off to matches
-    public PlayersList doPairing(PlayersList thePlayers,PlayersList masterList){
+    public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
         int numByes= thePlayers.getNumberOfByes();
         int numPairs = thePlayers.getSize() /2;
         System.out.println("Round " + this.roundNumber +" We have " + numPlayers + " so that's " + numPairs + " pairs");
         for (int i=0;i< thePlayers.getSize();i++){
             Player testPlayer = thePlayers.playersList.get(i);
-            System.out.println("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.hashCode());
+            System.out.println("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
 
         }
 
@@ -52,14 +55,14 @@ public class Round {
                 player1 = (int) (Math.random() * thePlayers.getSize() );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
-                    System.out.println("better pick again, this player("+ player1 +") has already been eliminated");
+                    System.out.println("better pick p1 again, this player("+ player1 +") has already been eliminated");
                 } else {
-                    if (thePlayers.playersList.get(player1).roundReached == this.roundNumber) {
-                        System.out.println("better pick again, this player("+ player1 +") has already played this round");
+                    if (thePlayers.playersList.get(player1).getRoundReached() == this.roundNumber) {
+                        System.out.println("better pick p1 again, this player("+ player1 +") has already played this round");
                     } else {
                         //don't allow dummy player in the player1 slot.  this stops dummy players being drawn against each other.
-                        if (thePlayers.playersList.get(player1).dummy==true){
-                            System.out.println("dummy player("+ player1 +"), better pick again");
+                        if (thePlayers.playersList.get(player1).isDummy()==true){
+                            System.out.println("dummy p1 player("+ player1 +"), better pick again");
                         }
                         else {
                             //System.out.println("this number is free, let's use it");
@@ -86,23 +89,24 @@ public class Round {
                 //but left it in in case we want to use it for, say, recording an injured player who doesn't lose but still can't play
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
-                    System.out.println("better pick again, this player ("+ player2 +") has already been removed");
+                    System.out.println("better pick p2 again, this player ("+ player2 +") has already been removed");
                 }
                 else
                 {
-                    if (thePlayers.playersList.get(player2).roundReached == this.roundNumber)
+                    if (thePlayers.playersList.get(player2).getRoundReached() == this.roundNumber)
                     {
-                        System.out.println("better pick again, this player("+ player2 +") has already played this round");
+                        System.out.println("better pick p2 again, this player("+ player2 +") has already played this round");
                     }
                     else
                     {
                         //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
                         //otherwise we will end up with 2 dummies left and they can't play each other since neither can be player1
                         //causes a perpetual loop
-                        if ((numPairs - countPairs == thePlayers.getNumberOfByes() - countByes) && thePlayers.playersList.get(player2).dummy == false)
+                        //if ((numPairs - countPairs == thePlayers.getNumberOfByes() - countByes) && thePlayers.playersList.get(player2).dummy == false)
+                        if ((numPairs - countPairs == numByes - countByes) && thePlayers.playersList.get(player2).isDummy() == false)
                         {
                              //reject the real player
-                            System.out.println("need to make sure we have a dummy player");
+                            System.out.println("need to make sure we have a dummy p2 player - rejected this player("+ player2 +")");
                         }
                         else
                         {
@@ -112,7 +116,7 @@ public class Round {
                             myPlayer.setRoundReached(this.roundNumber);
                             //System.out.println(myPlayer.roundReached);
                             //Add 1 to the local count of dummy players paired
-                            if (myPlayer.dummy){
+                            if (myPlayer.isDummy()){
                                 countByes++;
                             }
 
@@ -131,7 +135,7 @@ public class Round {
             //need to declare the match here because a different object will be instantiated depending on whether
             //there is a dummy player drawn for the match
             Match theMatch;
-            if (thePlayers.playersList.get(player2).dummy==true){
+            if (thePlayers.playersList.get(player2).isDummy()==true){
                 //use the fixed match child class so that the match is not played
                 //player1 gets a bye
                  theMatch = new FixedMatch(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
@@ -167,14 +171,7 @@ public class Round {
 
             //Add the winner to the list for the next round
             thisRoundWinners.addPlayer(theWinner);
-////
-////        for (int i=0;i< this.playersList.size();i++){
-////            System.out.println("The player "+ i+" is " + playersList.get(i).firstName + " " +  playersList.get(i).lastName + " " + playersList.get(i).hashCode());
-////
-////        }*/
 
-            //System.out.println("picked " + countPairs + " pairs");
-            //countPairs+=1;
         }
         System.out.println("so now we have " + thisRoundWinners.getSize());
 

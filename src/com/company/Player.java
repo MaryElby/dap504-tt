@@ -1,12 +1,12 @@
 package com.company;
 
 public class Player {
-
-    public String firstName,lastName;
-    public int playerID =0;
-    public boolean active=true;
-    public int roundReached=0;
-    public boolean dummy=false;
+//make all the attributes private so they can only be accessed with getters/setters/methods in this class
+    private String firstName,lastName;
+    private int playerID =0;   //need to be able to match players in master list to players in round list
+    private boolean active=true; //every player starts as active
+    private int roundReached=0; //every player starts at round 0
+    private boolean dummy=false; //this is changed in the constructor for dummy players
 
     public int getRoundReached() {
         return roundReached;
@@ -15,8 +15,6 @@ public class Player {
     public void setRoundReached(int roundReached) {
         this.roundReached = roundReached;
     }
-
-
 
     public boolean isActive() {
         return active;
@@ -48,17 +46,16 @@ public class Player {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public int getPlayerID() {
+        return playerID;
     }
 
+    public boolean isDummy() {
+        return dummy;
+    }
 
 }

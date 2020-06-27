@@ -1,7 +1,6 @@
 package pack.match;
 
 import com.company.Player;
-import pack.match.Match;
 
 public class FixedMatch extends Match {
     public FixedMatch(Player player1, Player player2) {
@@ -10,7 +9,10 @@ public class FixedMatch extends Match {
 
     public Player setWinner() {
         //in a fixed match the winner has to be player1
-        System.out.println(player1.firstName + " got a bye!");
-        return player1;
+        //even though this is a derived class from Match it cannot see Match's private variables without the getter
+        //We could have accessed them directly by making them protected and having the two classes in their own package
+        //to protect against other classes in the solution
+        System.out.println(getPlayer1().getFirstName() + " got a bye!");
+        return getPlayer1();
     }
 }
