@@ -1,6 +1,6 @@
-public class Tournament {
+public class Tournament extends AbstractTournament {
     //work out how many rounds are needed based on the number of players
-    public int GetNumberOfRounds(int numberOfPlayers){
+    public int setNumberOfRounds(int numberOfPlayers){
         int rounds=0;
         int counter=numberOfPlayers;
         System.out.println("Number of players = " + numberOfPlayers);

@@ -95,9 +95,10 @@ public class Round {
                     else
                     {
                         //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
-                        //otherwise on the last pairing there will be 2 dummies left and they can't play each other since neither can be player1
+                        //otherwise we will end up with 2 dummies left and they can't play each other since neither can be player1
                         //causes a perpetual loop
-                        if (numPairs - countPairs <= thePlayers.getNumberOfByes() && (countByes< (thePlayers.getNumberOfByes()) && thePlayers.playersList.get(player2).dummy == false))
+                        //if (numPairs - countPairs <= thePlayers.getNumberOfByes() && (countByes< (thePlayers.getNumberOfByes()) && thePlayers.playersList.get(player2).dummy == false))
+                        if ((numPairs - countPairs == thePlayers.getNumberOfByes() - countByes) && thePlayers.playersList.get(player2).dummy == false)
                         {
                              //reject the real player
                             System.out.println("need to make sure we have a dummy player");

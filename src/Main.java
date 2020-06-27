@@ -11,11 +11,12 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         Tournament theTournament= new Tournament();
+        theTournament.Prize= 10000.4256;
         int numberOfPlayers = 5;
 
         int numberOfByes = theTournament.GetNumberOfByes(numberOfPlayers);
         int totalPlayers = numberOfPlayers+numberOfByes;
-        int numberOfRounds = theTournament.GetNumberOfRounds(totalPlayers);
+        int numberOfRounds = theTournament.setNumberOfRounds(totalPlayers);
         PlayersList thePlayers = new PlayersList(totalPlayers);
         //thePlayers.createListOfPlayers();
         thePlayers.createPlayerList(numberOfPlayers);
@@ -36,7 +37,9 @@ public class Main {
         }
         //once that is done we should know who the winner of the tournament is ... the only one left in the list
         Player testPlayer = thePlayers.playersList.get(0);
+
         System.out.println("And the winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.playerID + " " + testPlayer.hashCode());
+        theTournament.presentPrize(testPlayer,theTournament.Prize);
         //testPlayer.setRoundReached(numberOfRounds);
         //set winner's round reached otherwise it stays at 0
         masterList.SetLoser(masterList,testPlayer,numberOfRounds+1);
