@@ -8,13 +8,39 @@ public class Match {
     //can either do this by making player1 protected or by implementing a getter in this class
     private Player player1;
     private Player player2;
+    /**
+     getter for player1
+     **/
+    protected Player getPlayer1() {
+        return player1;
+    }
+    /**
+     setter for player1
+     **/
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+    /**
+     getter for player2
+     **/
+    protected Player getPlayer2() {
+        return player2;
+    }
+    /**
+     setter for player2
+     **/
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
 
     //constructor
     public Match(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
     }
-
+    /**
+     sets the winner of a match
+     **/
     protected Player setWinner() {
         Player theWinner = player1;
         Player theLoser = player2;
@@ -23,29 +49,5 @@ public class Match {
         return player1;
     }
 
-    protected Player getPlayer1() {
-        return player1;
-    }
 
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
-    }
-
-    protected Player getPlayer2() {
-        return player2;
-    }
-
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
-    }
-
-
-    public Player setLoser() {
-        return player1;
-    }
-
-    public void getWinnerAndLoser(Player winner, Player loser){
-        winner = this.player2;
-        loser = this.player1;
-    }
-}
+ }

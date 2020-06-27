@@ -3,24 +3,30 @@ package pack.match;
 
 import com.company.Player;
 import com.company.PlayersList;
-import pack.match.FixedMatch;
-import pack.match.Match;
 
+/**
+ *     the Round class is responsible for creating pairings
+ *     for the matches within it.
+ *     It is passed a list of players and pairs them up
+ *     then sends each pair to a Match.  Returning a winner from each match as a list of players
+ */
 public class Round {
     //encapsulating the round number as it is only used internally.  in fact, is only used for display purposes
-    private int roundNumber;
-    //the Round class is responsible for creating pairings
-    //for the matches within it.
-    //It is passed a list of players and pairs them up
-    //then sends each pair to a Match.  Returning a winner from each match as a list of players
+    private final int roundNumber;
 
-    //constructor
+
+    /**
+     * constructor
+     */
+
     public Round(int RoundNumber) {
         this.roundNumber = RoundNumber;
     }
 
-    //this is the heart of the Round object - to draw pairs from the list and send them off to matches
-    public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
+    /**
+     *    this is the heart of the Round object - to draw pairs from the list and send them off to matches
+     **/
+     public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
         int numByes= thePlayers.getNumberOfByes();
         int numPairs = thePlayers.getSize() /2;
@@ -151,7 +157,7 @@ public class Round {
             Player theWinner = theMatch.setWinner();
             int iWinner = thePlayers.playersList.indexOf(theWinner);
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
-            //Player theLoser = theMatch.setLoser();
+
             Player theLoser;
             if ( iWinner==player1) {
                 theLoser = theMatch.getPlayer2();

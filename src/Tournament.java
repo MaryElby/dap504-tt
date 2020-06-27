@@ -1,5 +1,12 @@
+/**
+ * Tournament class.  Contains rounds
+ */
 public class Tournament extends AbstractTournament {
-    //work out how many rounds are needed based on the number of players
+    /**
+     * work out how many rounds are needed based on the number of players
+     * @param numberOfPlayers
+     * @return number of rounds
+     */
     public int setNumberOfRounds(int numberOfPlayers){
         int rounds=0;
         int counter=numberOfPlayers;
@@ -13,8 +20,13 @@ public class Tournament extends AbstractTournament {
         System.out.println("final count of Rounds "+ rounds);
         return rounds;
     }
+
+    /**
+     * work out how many dummy players are needed to run a tournament
+     * @param numberOfPlayers
+     * @return number of byes
+     */
     public int GetNumberOfByes(int numberOfPlayers){
-     //work out how many dummy players are needed to run a tournament
         //start at 1 and keep doubling until counter > numberOfPlayers.
         //then the number of byes needed is counter - numberOfPlayers
      int numByes=0;
@@ -30,7 +42,6 @@ public class Tournament extends AbstractTournament {
         System.out.println("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
 
      return numByes;
-
 
     }
 }

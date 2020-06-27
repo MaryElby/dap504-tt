@@ -13,28 +13,56 @@ import java.util.List;
 public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
-
+    /**
+     setter for numberOfPlayers
+     **/
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
-
+    /**
+     setter for numberOfByes
+     **/
     public void setNumberOfByes(int numberOfByes) {
         this.numberOfByes = numberOfByes;
     }
 
-
+    /**
+     getter for list size
+     **/
+    public int getSize() {
+        return this.playersList.size();
+    }
+    /**
+     getter for numberOfByes
+     **/
+    public int getNumberOfByes() {
+        return (this.numberOfByes);
+    }
+    /**
+     getter for numberOfPlayers
+     **/
+    public int getNumberOfPlayers() {
+        return (this.numberOfPlayers);
+    }
 
     public List<Player> playersList = new ArrayList<Player>();
-    public PlayersList(int numberOfRounds) {
-        this.numberOfPlayers = numberOfRounds;
+    /**
+     constructor
+     **/
+    public PlayersList(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
 
     }
 
-    public void removePlayer(int playerToGo){        this.playersList.remove(playerToGo);}
+    /**
+     sets the given player to inactive
+     **/
     public void setInactive(int playerToSet){
         this.playersList.get(playerToSet).setActive(false);
     }
-
+    /**
+     creates the required number of players from JSON file
+     **/
     public void createPlayerList(int numberOfPlayers) throws FileNotFoundException {
 
 
@@ -57,10 +85,17 @@ public class PlayersList {
 //            }
     }
     //these are public because they are called from the Round to add players to the list for the next round
+    /**
+     adds the given player to the list
+     **/
     public void addPlayer(Player thePlayer){
         playersList.add(thePlayer);
 
     }
+
+    /**
+     finds the given player in the master list and sets their round reached to the given round
+     **/
     public void SetLoser(PlayersList masterList, Player theLoser, int theRound) {
         Player thePlayer;
 
@@ -77,11 +112,9 @@ public class PlayersList {
         }
     }
 
-    public int getSize() {
-        return this.playersList.size();
-    }
-
-    //adds the number of dummy players required
+/**
+    adds the given number of dummy players required to the list
+ **/
     public void addByes(int numberOfPlayers,int numberOfByes){
         for (int i = 0; i < numberOfByes; i++) {
 
@@ -91,14 +124,9 @@ public class PlayersList {
         }
     }
 
-    public void writePlayersResults(PlayersList thePlayers) {
-        for (int i = 0; i < thePlayers.getSize(); i++) {
-            Player thisPlayer = thePlayers.playersList.get(i);
-            System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached());
-
-        }
-    }
-
+    /**
+     writes a list of players with their round reached, leaves out dummy players if reqd
+     **/
     public void writePlayersResults(int dummyDisplay, PlayersList thePlayers){
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
@@ -108,11 +136,4 @@ public class PlayersList {
             }
     }
 
-    public int getNumberOfByes() {
-        return (this.numberOfByes);
-    }
-
-    public int getNumberOfPlayers() {
-        return (this.numberOfPlayers);
-    }
 }
