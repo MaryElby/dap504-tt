@@ -125,13 +125,31 @@ public class PlayersList {
     }
 
     /**
+     finds the given player in the master list and adds the games won to their total
+     **/
+    public void AddGamesWon(PlayersList masterList, Player whichPlayer, int theGamesWon) {
+        Player thePlayer;
+
+        //find the player in the master list by their ID and set their round reached.
+        for (int i=0;i< masterList.getSize();i++             )
+        {
+            thePlayer = masterList.playersList.get(i);
+            if (thePlayer.getPlayerID() == whichPlayer.getPlayerID()) {
+                //we have found the player in the master list
+                thePlayer.setGamesWon(theGamesWon);
+                System.out.println("added " + theGamesWon +" to the total games won for " + thePlayer.getFirstName() );
+
+            }
+        }
+    }
+    /**
      writes a list of players with their round reached, leaves out dummy players if reqd
      **/
     public void writePlayersResults(int dummyDisplay, PlayersList thePlayers){
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
                 if (dummyDisplay==0 && !thisPlayer.isDummy()) {
-                    System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached());
+                    System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
                 }
             }
     }

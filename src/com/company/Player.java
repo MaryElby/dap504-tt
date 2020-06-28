@@ -8,7 +8,23 @@ public class Player {
     private int playerID =0;   //need to be able to match players in master list to players in round list
     private boolean active=true; //every player starts as active
     private int roundReached=0; //every player starts at round 0
+    private int gamesWon=0; //every player starts with 0 games won
     private boolean dummy=false; //this is changed in the constructor for dummy players
+
+    /**
+     getter for gamesWon
+     **/
+    public int getGamesWon() {
+        return gamesWon;
+    }
+    /**
+     setter for roundReached
+     note: adds the incoming number to the player's total rather than replacing it
+     **/
+    public void setGamesWon(int gamesWon) {
+        this.gamesWon+= gamesWon;
+    }
+
     /**
      getter for roundReached
      **/

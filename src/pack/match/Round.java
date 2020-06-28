@@ -13,7 +13,7 @@ import com.company.PlayersList;
 public class Round {
     //encapsulating the round number as it is only used internally.  in fact, is only used for display purposes
     private final int roundNumber;
-
+    private int numberOfGames;
 
     /**
      * constructor
@@ -21,6 +21,8 @@ public class Round {
 
     public Round(int RoundNumber) {
         this.roundNumber = RoundNumber;
+        numberOfGames= (RoundNumber*2)+1;
+        System.out.println("this round the matches are " + numberOfGames + " games each.");
     }
 
     /**
@@ -61,14 +63,14 @@ public class Round {
                 player1 = (int) (Math.random() * thePlayers.getSize() );
 
                 if (thePlayers.playersList.get(player1).isActive() == false) {
-                    System.out.println("better pick p1 again, this player("+ player1 +") has already been eliminated");
+                    //System.out.println("better pick p1 again, this player("+ player1 +") has already been eliminated");
                 } else {
                     if (thePlayers.playersList.get(player1).getRoundReached() == this.roundNumber) {
-                        System.out.println("better pick p1 again, this player("+ player1 +") has already played this round");
+                        //System.out.println("better pick p1 again, this player("+ player1 +") has already played this round");
                     } else {
                         //don't allow dummy player in the player1 slot.  this stops dummy players being drawn against each other.
                         if (thePlayers.playersList.get(player1).isDummy()==true){
-                            System.out.println("dummy p1 player("+ player1 +"), better pick again");
+                            //System.out.println("dummy p1 player("+ player1 +"), better pick again");
                         }
                         else {
                             //System.out.println("this number is free, let's use it");
@@ -95,13 +97,13 @@ public class Round {
                 //but left it in in case we want to use it for, say, recording an injured player who doesn't lose but still can't play
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
-                    System.out.println("better pick p2 again, this player ("+ player2 +") has already been removed");
+                    //System.out.println("better pick p2 again, this player ("+ player2 +") has already been removed");
                 }
                 else
                 {
                     if (thePlayers.playersList.get(player2).getRoundReached() == this.roundNumber)
                     {
-                        System.out.println("better pick p2 again, this player("+ player2 +") has already played this round");
+                        //System.out.println("better pick p2 again, this player("+ player2 +") has already played this round");
                     }
                     else
                     {
@@ -112,7 +114,7 @@ public class Round {
                         if ((numPairs - countPairs == numByes - countByes) && thePlayers.playersList.get(player2).isDummy() == false)
                         {
                              //reject the real player
-                            System.out.println("need to make sure we have a dummy p2 player - rejected this player("+ player2 +")");
+                            //System.out.println("need to make sure we have a dummy p2 player - rejected this player("+ player2 +")");
                         }
                         else
                         {
@@ -147,31 +149,48 @@ public class Round {
                  theMatch = new FixedMatch(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
             }
             else {
-                //2 ordinary players - run a proper match for them
-                 theMatch = new Match(thePlayers.playersList.get(player1), thePlayers.playersList.get(player2));
+                //2 ordinary players - run a proper match for them.  The number of games in a match can be variable if required
+                 theMatch = new Match(thePlayers.playersList.get(player1), thePlayers.playersList.get(player2), numberOfGames);
             }
 
 
             //Set statuses for the players
             //Should this be in the match class?
-            Player theWinner = theMatch.setWinner();
+            //Player theWinner = theMatch.setWinner();
+            int player1gamesWon=0,player2gamesWon=0;
+            Player theWinner = theMatch.determineWinner();
+
+            player1gamesWon= theMatch.getPlayer1Games();
+            player2gamesWon = theMatch.getPlayer2Games();
+
             int iWinner = thePlayers.playersList.indexOf(theWinner);
+            int theLoserGamesWon=0;
+            int theWinnerGamesWon=0;
+
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
 
             Player theLoser;
             if ( iWinner==player1) {
                 theLoser = theMatch.getPlayer2();
+                theLoserGamesWon=player2gamesWon;
+                theWinnerGamesWon=player1gamesWon;
             }
             else{
                 theLoser = theMatch.getPlayer1();
+                theLoserGamesWon=player1gamesWon;
+                theWinnerGamesWon=player2gamesWon;
             }
 
             //Set the round reached in the master list for the player who lost
             //System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
             masterList.SetLoser(masterList,theLoser,this.roundNumber);
+            //keep a running total of games won in the master list so we can report on it at the end
+            masterList.AddGamesWon(masterList,theWinner,theWinnerGamesWon);
+            masterList.AddGamesWon(masterList,theLoser,theLoserGamesWon);
 
-            //System.out.println("The player " + theWinner.firstName + " " +  theWinner.lastName + " won the match ");
-            //System.out.println("The player " + theLoser.firstName + " " +  theLoser.lastName + " is going home ");
+
+            System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
+            System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
 
             theLoser.setActive(false);
 
