@@ -31,7 +31,7 @@ public class Main {
 
         //run the tournament
         //this moved to tournament class
-        thePlayers=theTournament.runTournament( thePlayers, masterList);
+       theTournament.runTournament( thePlayers, masterList);
 //        for (int i=0;i < numberOfRounds;i++){
 //            //System.out.println("Round " + i+1);
 //            Round thisRound = new Round(i+1);
@@ -44,7 +44,7 @@ public class Main {
         theTournament.presentPrize(testPlayer, theTournament.getPrizePot());
         //testPlayer.setRoundReached(numberOfRounds);
         //set winner's round reached otherwise it stays at 0
-        masterList.SetLoser(masterList,testPlayer,numberOfRounds+1);
+        //masterList.SetLoser(masterList,testPlayer,numberOfRounds+1);
 
         masterList.writePlayersResults(0,masterList);
 
