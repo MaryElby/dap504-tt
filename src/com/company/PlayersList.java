@@ -116,6 +116,7 @@ public class PlayersList {
     adds the given number of dummy players required to the list
  **/
     public void addByes(int numberOfPlayers,int numberOfByes){
+        this.numberOfByes = numberOfByes;
         for (int i = 0; i < numberOfByes; i++) {
 
             //add in a dummy player to the list

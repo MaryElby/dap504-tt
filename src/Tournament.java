@@ -6,18 +6,36 @@ import pack.match.Round;
  * Tournament class.  Contains rounds
  */
 public class Tournament extends AbstractTournament {
+
+    private int numRounds;
+    private final double prizePot;
+    private int numPlayers;
+
+    public int getNumByes() {
+        return numByes;
+    }
+
+    public void setNumByes(int numByes) {
+        this.numByes = numByes;
+    }
+
+    private int numByes;
+
+    //constructor
+    public Tournament(int numberOfPlayers, double prizePot) {
+        this.numByes = calcNumberOfByes(numberOfPlayers);
+        this.numPlayers = numberOfPlayers;
+        this.numRounds = setNumberOfRounds(numPlayers+numByes);
+        this.prizePot = prizePot;
+    }
+
     /**
      * work out how many rounds are needed based on the number of players
-     * @param numberOfPlayers
      * @return number of rounds
      */
-    int numRounds;
-    double prizePot;
 
-    public int getNumRounds() {
-        return numRounds;
-    }
-    public int setNumberOfRounds(int numberOfPlayers){
+
+    protected int setNumberOfRounds(int numberOfPlayers){
         int rounds=0;
         int counter=numberOfPlayers;
         System.out.println("Number of players = " + numberOfPlayers);
@@ -38,7 +56,7 @@ public class Tournament extends AbstractTournament {
      * @param numberOfPlayers
      * @return number of byes
      */
-    public int GetNumberOfByes(int numberOfPlayers){
+    private int calcNumberOfByes(int numberOfPlayers){
         //start at 1 and keep doubling until counter > numberOfPlayers.
         //then the number of byes needed is counter - numberOfPlayers
      int numByes=0;
@@ -66,7 +84,7 @@ public class Tournament extends AbstractTournament {
         }
         //once that is done we should know who the winner of the tournament is ... the only one left in the list
         Player testPlayer = thePlayers.playersList.get(0);
-        System.out.println("And the winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
+        System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
         this.presentPrize(testPlayer, this.prizePot);
         //testPlayer.setRoundReached(numberOfRounds);
         //set winner's round reached otherwise it stays at 0
