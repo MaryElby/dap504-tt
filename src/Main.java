@@ -1,6 +1,6 @@
 import com.company.Player;
 import com.company.PlayersList;
-import pack.match.Round;
+//import pack.match.Round;
 
 import java.io.FileNotFoundException;
 
@@ -30,11 +30,13 @@ public class Main {
         masterList.addByes(numberOfPlayers,numberOfByes);
 
         //run the tournament
-        for (int i=0;i < numberOfRounds;i++){
-            //System.out.println("Round " + i+1);
-            Round thisRound = new Round(i+1);
-            thePlayers=thisRound.doPairing(thePlayers,masterList);
-        }
+        //this moved to tournament class
+        thePlayers=theTournament.runTournament( thePlayers, masterList);
+//        for (int i=0;i < numberOfRounds;i++){
+//            //System.out.println("Round " + i+1);
+//            Round thisRound = new Round(i+1);
+//            thePlayers=thisRound.doPairing(thePlayers,masterList);
+//        }
         //once that is done we should know who the winner of the tournament is ... the only one left in the list
         Player testPlayer = thePlayers.playersList.get(0);
 
