@@ -13,12 +13,12 @@ import com.company.PlayersList;
 public class Round {
     //encapsulating the round number as it is only used internally.  in fact, is only used for display purposes
     private final int roundNumber;
-    private int numberOfGames;
+    private final int numberOfGames;
 
     /**
      * constructor
+     * @param RoundNumber int - the number of the round.  we use it to calculate how many games each match will be and for display in the results
      */
-
     public Round(int RoundNumber) {
         this.roundNumber = RoundNumber;
         numberOfGames= (RoundNumber*2)+1;
@@ -27,6 +27,10 @@ public class Round {
 
     /**
      *    this is the heart of the Round object - to draw pairs from the list and send them off to matches
+     *    It also deals with updating the players' stats for the round, for reporting at the end of the tournament
+     * @param thePlayers PlayersList - list of players in this round
+     * @param masterList PlayersList - master list of all players in the tournament
+     * @return PlayersList - list of players for the next round
      **/
      public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
         int numPlayers = thePlayers.getNumberOfPlayers();
@@ -39,9 +43,9 @@ public class Round {
 
         }
 
-        //make a new list for the winners of this round's matches
+        //make a new list for the winners of this round's matches - we know the size is half the size of the incoming list
         //this will be the list sent to the next round
-        PlayersList thisRoundWinners = new PlayersList(numPairs);
+        PlayersList thisRoundWinners = new PlayersList();
 
         boolean goodChoice1 = false;
         boolean goodChoice2 = false;
@@ -93,7 +97,7 @@ public class Round {
                 player2 = (int) (Math.random() * thePlayers.getSize()) ;
 
                 //the active check is a quick way of showing if the selected player has already been eliminated.
-                //actually the roundReached also shows this
+                //actually the roundReached also shows if the player has already played in this round
                 //but left it in in case we want to use it for, say, recording an injured player who doesn't lose but still can't play
                 if (thePlayers.playersList.get(player2).isActive() == false)
                 {
@@ -156,12 +160,12 @@ public class Round {
 
             //Set statuses for the players
             //Should this be in the match class?
-            //Player theWinner = theMatch.setWinner();
             int player1gamesWon=0,player2gamesWon=0;
             Player theWinner = theMatch.determineWinner();
 
             player1gamesWon= theMatch.getPlayer1Games();
             player2gamesWon = theMatch.getPlayer2Games();
+
 
             int iWinner = thePlayers.playersList.indexOf(theWinner);
             int theLoserGamesWon=0;
@@ -169,6 +173,7 @@ public class Round {
 
             System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
 
+            //Map the winner and loser to player1 and player2
             Player theLoser;
             if ( iWinner==player1) {
                 theLoser = theMatch.getPlayer2();
@@ -188,10 +193,9 @@ public class Round {
             masterList.AddGamesWon(masterList,theWinner,theWinnerGamesWon);
             masterList.AddGamesWon(masterList,theLoser,theLoserGamesWon);
 
-
             System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
             System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
-
+            //Set the loser to be inactive - this stops them being selected
             theLoser.setActive(false);
 
             //Add the winner to the list for the next round

@@ -4,6 +4,8 @@ import pack.match.Round;
 
 /**
  * Tournament class.  Contains rounds
+ * this class is an implementation of the abstract class AbstractTournament
+ * it gives us some structure about what needs implementing and provides a default prize giving
  */
 public class Tournament extends AbstractTournament {
 
@@ -11,15 +13,24 @@ public class Tournament extends AbstractTournament {
     private final double prizePot;
     private int numPlayers;
     private int numByes;
+
+
+
     /**
      getter for numByes
+     @return numByes
      **/
     public int getNumByes() {
         return numByes;
     }
 
-    //constructor
-    public Tournament(int numberOfPlayers, double prizePot) {
+    /**
+     * constructor
+     * create a tournament for given number of players with given prize pot
+     * @param numberOfPlayers int - number of real players who want to play in the tournament
+     * @param prizePot double - the prize fund (if there is one)
+     */
+        public Tournament(int numberOfPlayers, double prizePot) {
         this.numByes = calcNumberOfByes(numberOfPlayers);
         this.numPlayers = numberOfPlayers;
         this.numRounds = setNumberOfRounds(numPlayers+numByes);
@@ -28,7 +39,8 @@ public class Tournament extends AbstractTournament {
 
     /**
      * work out how many rounds are needed based on the number of players
-     * @return number of rounds
+     * @param numberOfPlayers int total number of players in the tournament
+     * @return number of rounds int calculated number of rounds needed
      */
     protected int setNumberOfRounds(int numberOfPlayers){
         int rounds=0;
@@ -48,8 +60,8 @@ public class Tournament extends AbstractTournament {
 
     /**
      * work out how many dummy players are needed to run a tournament
-     * @param numberOfPlayers
-     * @return number of byes
+     * @param numberOfPlayers int - number of real players
+     * @return number of byes int - calculated number of dummy players needed
      */
     private int calcNumberOfByes(int numberOfPlayers){
         //start at 1 and keep doubling until counter > numberOfPlayers.
@@ -72,8 +84,8 @@ public class Tournament extends AbstractTournament {
 
     /**
      * runs a tournament given two lists of players
-     * @param thePlayers
-     * @param theMasterList
+     * @param thePlayers PlayersList - the list of players for the first round
+     * @param theMasterList PlayersList -  a copy of thePlayers that will not be overwritten by subsequent rounds
      */
     void runTournament(PlayersList thePlayers,PlayersList theMasterList) {
         //run the tournament
@@ -82,17 +94,20 @@ public class Tournament extends AbstractTournament {
             Round thisRound = new Round(i + 1);
             thePlayers = thisRound.doPairing(thePlayers, theMasterList);
         }
-        //once that is done we should know who the winner of the tournament is ... the only one left in the list
+        //once that is done we should know who the winner of the tournament is ... the only one left in the thePlayers list
         Player testPlayer = thePlayers.playersList.get(0);
         //set winner's round reached otherwise it stays at 0
         theMasterList.SetLoser(theMasterList, testPlayer, numRounds + 1);
         System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
-        //present the prize
 
+        //present the prize
         this.presentPrize(testPlayer, this.prizePot);
 
         //write out the results for each player
-        theMasterList.writePlayersResults(0, theMasterList);
+        //this is where we need the master list which still has all the players in it
+        //Can write out the dummy players as well if wanted by changing the first parameter to true.
+        //Good for testing but not so much for proper tournament
+        theMasterList.writePlayersResults(false, theMasterList);
     }
 }
 

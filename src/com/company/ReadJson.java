@@ -1,23 +1,26 @@
 package com.company;
-
+/**
+ * ReadJson class.  For reading from a JSON file
+ */
 public class ReadJson {
 
+    private String first_name, last_name;
+    /**
+     * getter for first_name
+     * @return string the player's first name
+     */
     public String getFirstName() {
         return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.first_name = firstName;
-    }
-
+    /**
+     * getter for last_name
+     * @return string the player's last name
+    */
     public String getLastName() {
         return last_name;
     }
 
-    public void setLastName(String lastName) {
-        last_name = lastName;
-    }
 
-    private String first_name, last_name;
 }
 

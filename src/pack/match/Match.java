@@ -27,30 +27,39 @@ public class Match {
 
     /**
      getter for player1
+     * @return Player the player who has been drawn as player 1
      **/
     protected Player getPlayer1() {
         return player1;
     }
     /**
      setter for player1
+     @param player1 Player - the player who we want to set as player1
      **/
     public void setPlayer1(Player player1) {
         this.player1 = player1;
     }
     /**
      getter for player2
+     * @return Player the player who has been drawn as player 2
      **/
     protected Player getPlayer2() {
         return player2;
     }
     /**
      setter for player2
+     @param player2 Player - the player who we want to set as player2
      **/
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
 
-    //constructor
+    /**
+    constructor
+     @param player1 Player - the player who has been drawn as player1
+     @param player2 Player - the player who has been drawn as player2
+     @param numberOfGames int - the number of games that the match requires.  This could stay the same throughout the tournament or be changed in each round
+     **/
     public Match(Player player1, Player player2, int numberOfGames) {
         this.player1 = player1;
         this.player2 = player2;
@@ -62,6 +71,7 @@ public class Match {
      When all the games have been played, returns the winner of the match
      :TODO Do we need to be a bit cleverer about the number of games played?  In a 5 game match, the winner is the first to 3
      and the match is over once one player gets to 3
+     @return Player - the winning player
      **/
     protected Player determineWinner()
     {

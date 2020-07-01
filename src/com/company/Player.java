@@ -13,12 +13,14 @@ public class Player {
 
     /**
      getter for gamesWon
+     @return gamesWon int
      **/
     public int getGamesWon() {
         return gamesWon;
     }
     /**
-     setter for roundReached
+     setter for gamesWon
+     @param gamesWon int
      note: adds the incoming number to the player's total rather than replacing it
      **/
     public void setGamesWon(int gamesWon) {
@@ -27,24 +29,28 @@ public class Player {
 
     /**
      getter for roundReached
+     @return roundReached int
      **/
     public int getRoundReached() {
         return roundReached;
     }
     /**
      setter for roundReached
+     @param roundReached int
      **/
     public void setRoundReached(int roundReached) {
         this.roundReached = roundReached;
     }
     /**
      getter for active
+     @return active boolean
      **/
     public boolean isActive() {
         return active;
     }
     /**
      setter for active
+     @param active boolean
      **/
     public void setActive(boolean active) {
         this.active = active;
@@ -52,31 +58,39 @@ public class Player {
 
     /**
      getter for lastName
+     @return lastName string
      **/
     public String getLastName() {
         return lastName;
     }
     /**
      getter for firstName
+     @return firstName string
      **/
     public String getFirstName() {
         return firstName;
     }
     /**
      getter for playerID
+     this is the unique identifier for the player which links the master playerList with the round playerList
+     @return playerID int
      **/
     public int getPlayerID() {
         return playerID;
     }
     /**
-     getter for dummy
+     getter for isDummy
+     @return dummy boolean
      **/
     public boolean isDummy() {
         return dummy;
     }
     /**
-     * constructor
+     * constructor (overloaded)
      this is the constructor for a normal (real) player
+     @param firstName string
+     @param lastName string
+     @param id  int
      **/
     public Player(String firstName, String lastName, int id) {
 
@@ -86,8 +100,11 @@ public class Player {
         this.dummy= false;
     }
     /**
-     * constructor
+     * constructor (overloaded)
      this is the constructor for a dummy player
+     Only needs one parameter.
+     The different method signature is what the program uses to decide which constructor to use
+     @param id int
      **/
     public Player(int id) {
 
