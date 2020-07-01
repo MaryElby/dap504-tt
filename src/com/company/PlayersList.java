@@ -15,7 +15,16 @@ in the data folder of the program
 public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
-    //private int totalPlayers;
+    private int totalPlayers;
+    /**
+     getter for totalPlayers
+     @return totalPlayers - the total number of players in this list
+     **/
+    public int getTotalPlayers() {
+        return this.numberOfPlayers+this.numberOfByes;
+    }
+
+
     /**
      getter for list size
      @return int - the number of elements in this list

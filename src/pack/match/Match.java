@@ -16,10 +16,17 @@ public class Match {
     private int player1Games=0;
     private int player2Games=0;
 
+    /**
+     getter for player1Games
+     * @return int the number of games won by player1 in the match
+     **/
     protected int getPlayer1Games() {
         return player1Games;
     }
-
+    /**
+     getter for player2Games
+     * @return int the number of games won by player2 in the match
+     **/
     protected int getPlayer2Games() {
         return player2Games;
     }
@@ -67,45 +74,54 @@ public class Match {
     }
 
     /**
-     plays the prescribed number of games and keeps score.
-     When all the games have been played, returns the winner of the match
-     :TODO Do we need to be a bit cleverer about the number of games played?  In a 5 game match, the winner is the first to 3
-     and the match is over once one player gets to 3
+     plays upto the prescribed number of games and keeps score.
+     When all games have been played, returns the winner of the match
+     The match is over once one player gets over half of the max number of games
      @return Player - the winning player
      **/
     protected Player determineWinner()
     {
-        int numGamesPlayed=0;
-        while (numGamesPlayed < numberOfGames)
-        {
+        int numGamesPlayed = 0;
+        while (numGamesPlayed < numberOfGames) {
 
             //Declare and run a game
             Game theGame = new Game();
             theGame.playGame();
             //process the result
-            if (theGame.getPlayer1Points() > theGame.getPlayer2Points())
-            {
+            if (theGame.getPlayer1Points() > theGame.getPlayer2Points()) {
                 System.out.println("Win for player 1!");
                 player1Games++;
-            }
-            else
-            {
+            } else {
                 System.out.println("Win for player 2!");
                 player2Games++;
 
             }
             numGamesPlayed++;
+            //if one of the players has won more than half the games in the match then they are the winner
+            //so force exit out of the loop by setting the number of games played to the max number
+            if ((player1Games * 2 > numberOfGames) || (player2Games * 2 > numberOfGames)) {
+                numGamesPlayed = numberOfGames;
+            }
         }
 
         //once enough games have been played, declare a winner
-        if (player1Games > player2Games)
-        {
+        if (player1Games > player2Games) {
             System.out.println("player1 won the match " + player1Games + " games to " + player2Games);
+            if (player1Games == player2Games + 1) {
+                System.out.println("That was a close one!");
+            } else {
+                System.out.println("Player 1 dominated!");
+            }
             return player1;
-        }
-        else
-        {
+
+
+        } else {
             System.out.println("player2 won the match " + player2Games + " games to " + player1Games);
+            if (player2Games == player1Games + 1) {
+                System.out.println("That was a close one!");
+            } else {
+                System.out.println("Player 2 dominated!");
+            }
             return player2;
         }
 

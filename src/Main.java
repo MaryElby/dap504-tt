@@ -14,15 +14,16 @@ public class Main {
      * @param args arguments if needed
      * @throws FileNotFoundException standard exception for if the JSON is not found
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void doTournament() throws FileNotFoundException {
 
         // set prize fund and number of players
         /*:TODO need to get values from user rather than hardcode them*/
-        double thePrizePot=12572.64256;
+        double thePrizePot=0;
+        String aStringPrize="";
         int numberOfPlayers = 5;
 
         //Create a tournament with the selected number of players and prize fund.
-        Tournament theTournament= new Tournament(numberOfPlayers,thePrizePot);
+        Tournament theTournament= new Tournament(numberOfPlayers,thePrizePot,aStringPrize);
 
         //The tournament will have created as many bye players as needed to
         //make up the required number of players to run
@@ -33,11 +34,12 @@ public class Main {
         //Create a list of the total players for the tournament
 
         PlayersList thePlayers = new PlayersList();
-        //Add real players from JSON.  this will throw an error if it can't find the file
+        //Add real players from JSON.  this will throw an error if it can't find the file so we have a handler
         try {
             thePlayers.createPlayerList(numberOfPlayers);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Disaster! Cannot find file of players");
             throw e;
         }
 
@@ -56,4 +58,6 @@ public class Main {
        theTournament.runTournament( thePlayers, masterList);
 
     }
+
+
 }

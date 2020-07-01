@@ -44,8 +44,32 @@ public abstract class AbstractTournament {
      @param theWinner Player
      @param thePrize double
     **/
-    void presentPrize(Player theWinner, double thePrize){
-        System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + NumberFormat.getCurrencyInstance().format(thePrize) + ". Well done!");
+    void presentPrize(Player theWinner, double thePrize,String otherPrize)
+    {
+        String prizeStr;
+
+        if ((thePrize==0) && (otherPrize=="")) {
+            prizeStr = "kudos";
+        }
+        else
+        {
+            if (thePrize>0) {
+                try {
+                    prizeStr = NumberFormat.getCurrencyInstance().format(thePrize);
+                    if (!(otherPrize=="")) {
+                        prizeStr = prizeStr + " and " + otherPrize;
+                    }
+                } catch (NumberFormatException e) {
+                    prizeStr = otherPrize;
+                }
+            }
+            else{
+                    prizeStr =  otherPrize;
+                }
+
+        }
+
+        System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
     }
 
 

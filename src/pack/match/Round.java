@@ -33,7 +33,7 @@ public class Round {
      * @return PlayersList - list of players for the next round
      **/
      public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
-        int numPlayers = thePlayers.getNumberOfPlayers();
+        int numPlayers = thePlayers.getTotalPlayers();
         int numByes= thePlayers.getNumberOfByes();
         int numPairs = thePlayers.getSize() /2;
         System.out.println("Round " + this.roundNumber +" We have " + numPlayers + " so that's " + numPairs + " pairs");

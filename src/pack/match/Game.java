@@ -51,6 +51,9 @@ public class Game {
             if ((player1Points>=pointsToWin && player2Points<=player1Points-minPointsGap) || (player2Points>=pointsToWin && player1Points<=player2Points-minPointsGap) || (pointCounter==pointsMax))
             {
                 System.out.println("Game finished " + player1Points + " to " +player2Points);
+                if (pointCounter==pointsMax){
+                    System.out.println("What a marathon!");
+                }
                 return;
             }
             pointCounter++;

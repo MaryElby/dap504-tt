@@ -11,6 +11,7 @@ public class Tournament extends AbstractTournament {
 
     private int numRounds;
     private final double prizePot;
+    private String prize;
     private int numPlayers;
     private int numByes;
 
@@ -30,11 +31,12 @@ public class Tournament extends AbstractTournament {
      * @param numberOfPlayers int - number of real players who want to play in the tournament
      * @param prizePot double - the prize fund (if there is one)
      */
-        public Tournament(int numberOfPlayers, double prizePot) {
+        public Tournament(int numberOfPlayers, double prizePot,String otherPrize) {
         this.numByes = calcNumberOfByes(numberOfPlayers);
         this.numPlayers = numberOfPlayers;
         this.numRounds = setNumberOfRounds(numPlayers+numByes);
         this.prizePot = prizePot;
+        this.prize = otherPrize;
     }
 
     /**
@@ -101,7 +103,7 @@ public class Tournament extends AbstractTournament {
         System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
 
         //present the prize
-        this.presentPrize(testPlayer, this.prizePot);
+        this.presentPrize(testPlayer, this.prizePot,this.prize);
 
         //write out the results for each player
         //this is where we need the master list which still has all the players in it
