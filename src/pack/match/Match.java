@@ -2,6 +2,10 @@ package pack.match;
 
 import com.company.Player;
 
+/**
+ * Match is responsible for generating games until the game limit is reached
+ * and for declaring a winner
+ */
 public class Match {
     //player1 is set as the winner in FixedMatch so it needs to be visible to that
     //a protected variable can only be seen by classes in the same package or by derived classes
@@ -52,28 +56,23 @@ public class Match {
         this.player2 = player2;
         this.numberOfGames = numberOfGames;
     }
-    /**
-     sets the winner of a match
-     **/
-    protected Player setWinner() {
-        Player theWinner = player1;
-        Player theLoser = player2;
-        System.out.println("The player " + theWinner.getFirstName() + " " +  theWinner.getLastName() + " won the match ");
-        System.out.println("The player " + theLoser.getFirstName() + " " +  theLoser.getLastName() + " is going home ");
-        return player1;
-    }
 
+    /**
+     plays the prescribed number of games and keeps score.
+     When all the games have been played, returns the winner of the match
+     :TODO Do we need to be a bit cleverer about the number of games played?  In a 5 game match, the winner is the first to 3
+     and the match is over once one player gets to 3
+     **/
     protected Player determineWinner()
     {
         int numGamesPlayed=0;
         while (numGamesPlayed < numberOfGames)
         {
 
-
+            //Declare and run a game
             Game theGame = new Game();
-
-
             theGame.playGame();
+            //process the result
             if (theGame.getPlayer1Points() > theGame.getPlayer2Points())
             {
                 System.out.println("Win for player 1!");
@@ -88,6 +87,7 @@ public class Match {
             numGamesPlayed++;
         }
 
+        //once enough games have been played, declare a winner
         if (player1Games > player2Games)
         {
             System.out.println("player1 won the match " + player1Games + " games to " + player2Games);

@@ -36,6 +36,7 @@ public abstract class AbstractTournament {
     if a subclass does not implement its own presentPrize method then this one will be used.
      Meaning that there will always be a prize presentation that can be called at the end of every tournament.
     the NumberFormat from standard java library adds the currency symbol from the default locale and gives the right number of places after the decimal point
+    :TODO if no prize money then maybe need to do something different - or shall we handle that in override in the Tournament class?
     **/
     void presentPrize(Player theWinner, double thePrize){
         System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + NumberFormat.getCurrencyInstance().format(thePrize) + ". Well done!");

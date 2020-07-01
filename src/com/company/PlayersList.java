@@ -7,24 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-//the PlayersList class deals with the various lists of players - one is generated in each round -
-// and the master list which is generated at the beginning
-//For the master list, it gets the required number of players from a JSON file that must be present in the data folder of the program
+/**the PlayersList class deals with the various lists of players - one is generated in each round -
+and the initial and master lists which are generated at the beginning of the tournament.
+For the initial tournament and master list, it gets the required number of players from a JSON file that must be present
+in the data folder of the program
+ */
 public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
-    /**
-     setter for numberOfPlayers
-     **/
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
-    }
-    /**
-     setter for numberOfByes
-     **/
-    public void setNumberOfByes(int numberOfByes) {
-        this.numberOfByes = numberOfByes;
-    }
 
     /**
      getter for list size
@@ -65,7 +55,6 @@ public class PlayersList {
      **/
     public void createPlayerList(int numberOfPlayers) throws FileNotFoundException {
 
-
         //read JSON and loop through players
         String jsonFile = "data/players.json";
         Gson gson = new Gson();
@@ -77,12 +66,10 @@ public class PlayersList {
 
             for (int i = 0; i < numberOfPlayers; i++) {
                 ReadJson readJson = data[i];
-                //System.out.println(readJson.getFirstName() + " " + readJson.getLastName());
+                //Add the player to the list
                 playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), i));
             }
-//            for (Player thePlayer : playersList) {
-//                System.out.println("first name (in_list) = " + thePlayer.firstName);
-//            }
+
     }
     //these are public because they are called from the Round to add players to the list for the next round
     /**

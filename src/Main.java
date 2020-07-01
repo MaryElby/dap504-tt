@@ -9,16 +9,24 @@ import java.io.FileNotFoundException;
  */
 public class Main {
 
+    /**
+     * execution starts here
+     */
     public static void main(String[] args) throws FileNotFoundException {
 
+        // set prize fund and number of players
+        /*:TODO need to get values from user rather than hardcode them*/
         double thePrizePot=12572.64256;
         int numberOfPlayers = 5;
 
+        //Create a tournament with the selected number of players and prize fund.
         Tournament theTournament= new Tournament(numberOfPlayers,thePrizePot);
 
+        //The tournament will have created as many bye players as needed to
+        //get the required number of players to run
         int numberOfByes = theTournament.getNumByes();
         int totalPlayers = numberOfPlayers+numberOfByes;
-        //int numberOfRounds = theTournament.setNumberOfRounds(totalPlayers);
+        //Create the list of players for the tournament
         PlayersList thePlayers = new PlayersList(totalPlayers);
         thePlayers.createPlayerList(numberOfPlayers);
         thePlayers.addByes(numberOfPlayers,numberOfByes);
@@ -29,10 +37,8 @@ public class Main {
         masterList.createPlayerList(numberOfPlayers);
         masterList.addByes(numberOfPlayers,numberOfByes);
 
-        //run the tournament
-        //this moved to tournament class
+        //hand over to the Tournament class to run the tournament
        theTournament.runTournament( thePlayers, masterList);
-
 
     }
 }

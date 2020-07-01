@@ -78,7 +78,6 @@ public class Player {
      * constructor
      this is the constructor for a normal (real) player
      **/
-
     public Player(String firstName, String lastName, int id) {
 
         this.firstName = firstName;
@@ -97,7 +96,5 @@ public class Player {
         this.playerID=id;
         this.dummy=true;
     }
-
-
 
 }

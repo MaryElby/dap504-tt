@@ -10,16 +10,13 @@ public class Tournament extends AbstractTournament {
     private int numRounds;
     private final double prizePot;
     private int numPlayers;
-
+    private int numByes;
+    /**
+     getter for numByes
+     **/
     public int getNumByes() {
         return numByes;
     }
-
-    public void setNumByes(int numByes) {
-        this.numByes = numByes;
-    }
-
-    private int numByes;
 
     //constructor
     public Tournament(int numberOfPlayers, double prizePot) {
@@ -33,8 +30,6 @@ public class Tournament extends AbstractTournament {
      * work out how many rounds are needed based on the number of players
      * @return number of rounds
      */
-
-
     protected int setNumberOfRounds(int numberOfPlayers){
         int rounds=0;
         int counter=numberOfPlayers;
@@ -75,6 +70,11 @@ public class Tournament extends AbstractTournament {
 
     }
 
+    /**
+     * runs a tournament given two lists of players
+     * @param thePlayers
+     * @param theMasterList
+     */
     void runTournament(PlayersList thePlayers,PlayersList theMasterList) {
         //run the tournament
         for (int i = 0; i < this.numRounds; i++) {
@@ -84,12 +84,14 @@ public class Tournament extends AbstractTournament {
         }
         //once that is done we should know who the winner of the tournament is ... the only one left in the list
         Player testPlayer = thePlayers.playersList.get(0);
-        System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
-        this.presentPrize(testPlayer, this.prizePot);
-        //testPlayer.setRoundReached(numberOfRounds);
         //set winner's round reached otherwise it stays at 0
         theMasterList.SetLoser(theMasterList, testPlayer, numRounds + 1);
+        System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
+        //present the prize
 
+        this.presentPrize(testPlayer, this.prizePot);
+
+        //write out the results for each player
         theMasterList.writePlayersResults(0, theMasterList);
     }
 }
