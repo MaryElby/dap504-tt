@@ -1,5 +1,8 @@
+package pack.match;
+
 import com.company.Player;
 import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  * Abstract class to enforce the setRounds method in derived classes
@@ -44,11 +47,11 @@ public abstract class AbstractTournament {
      @param theWinner Player
      @param thePrize double
     **/
-    void presentPrize(Player theWinner, double thePrize,String otherPrize)
+    void presentPrize(tt_gui theGui,Player theWinner, double thePrize,String otherPrize)
     {
         String prizeStr;
 
-        if ((thePrize==0) && (otherPrize=="")) {
+        if ((thePrize==0) && (otherPrize==null)) {
             prizeStr = "kudos";
         }
         else
@@ -56,7 +59,10 @@ public abstract class AbstractTournament {
             if (thePrize>0) {
                 try {
                     prizeStr = NumberFormat.getCurrencyInstance().format(thePrize);
-                    if (!(otherPrize=="")) {
+                    if (otherPrize.contentEquals("") ) {
+                        //prizeStr = prizeStr + "!";
+                    }
+                    else{
                         prizeStr = prizeStr + " and " + otherPrize;
                     }
                 } catch (NumberFormatException e) {
@@ -70,6 +76,7 @@ public abstract class AbstractTournament {
         }
 
         System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
+        theGui.addReport(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
     }
 
 

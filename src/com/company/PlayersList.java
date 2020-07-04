@@ -2,6 +2,7 @@ package com.company;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import pack.match.tt_gui;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,7 +16,7 @@ in the data folder of the program
 public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
-    private int totalPlayers;
+    //private int totalPlayers;
     /**
      getter for totalPlayers
      @return totalPlayers - the total number of players in this list
@@ -31,6 +32,7 @@ public class PlayersList {
      **/
     public int getSize() {
         return this.playersList.size();
+        //return this.numberOfPlayers;
     }
     /**
      getter for numberOfByes
@@ -157,11 +159,12 @@ public class PlayersList {
      :TODO use the rounds reached and games won to determine 2nd and 3rd place
      :TODO if possible, write the players out in place order rather than in series order
      **/
-    public void writePlayersResults(boolean dummyDisplay, PlayersList thePlayers){
+    public void writePlayersResults(tt_gui theGui, boolean dummyDisplay, PlayersList thePlayers){
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
                 if ((!dummyDisplay && !thisPlayer.isDummy()) || (dummyDisplay)) {
                     System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
+                    theGui.addReport("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
                 }
             }
     }

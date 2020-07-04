@@ -19,10 +19,11 @@ public class Round {
      * constructor
      * @param RoundNumber int - the number of the round.  we use it to calculate how many games each match will be and for display in the results
      */
-    public Round(int RoundNumber) {
+    public Round(tt_gui theGui,int RoundNumber) {
         this.roundNumber = RoundNumber;
         numberOfGames= (RoundNumber*2)+1;
         System.out.println("this round the matches are " + numberOfGames + " games each.");
+        theGui.addReport("Round "+roundNumber +". This round the matches are " + numberOfGames + " games each.");
     }
 
     /**
@@ -32,15 +33,16 @@ public class Round {
      * @param masterList PlayersList - master list of all players in the tournament
      * @return PlayersList - list of players for the next round
      **/
-     public PlayersList doPairing(PlayersList thePlayers, PlayersList masterList){
+     public PlayersList doPairing(tt_gui theGui,PlayersList thePlayers, PlayersList masterList){
         int numPlayers = thePlayers.getTotalPlayers();
         int numByes= thePlayers.getNumberOfByes();
         int numPairs = thePlayers.getSize() /2;
-        System.out.println("Round " + this.roundNumber +" We have " + numPlayers + " so that's " + numPairs + " pairs");
+        System.out.println("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " pairs");
+        theGui.addReport("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " pairs");
         for (int i=0;i< thePlayers.getSize();i++){
             Player testPlayer = thePlayers.playersList.get(i);
             System.out.println("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
-
+            theGui.addReport("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
         }
 
         //make a new list for the winners of this round's matches - we know the size is half the size of the incoming list
@@ -142,6 +144,7 @@ public class Round {
             ///Add 1 to the local count of pairs created
             countPairs++;
             System.out.println("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
+            theGui.addReport("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
             //System.out.println("Count of Pairs is now " + countPairs);
 
             //need to declare the match here because a different object will be instantiated depending on whether
@@ -150,18 +153,18 @@ public class Round {
             if (thePlayers.playersList.get(player2).isDummy()==true){
                 //use the fixed match child class so that the match is not played
                 //player1 gets a bye
-                 theMatch = new FixedMatch(thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
+                 theMatch = new FixedMatch(theGui,thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
             }
             else {
                 //2 ordinary players - run a proper match for them.  The number of games in a match can be variable if required
-                 theMatch = new Match(thePlayers.playersList.get(player1), thePlayers.playersList.get(player2), numberOfGames);
+                 theMatch = new Match(theGui,thePlayers.playersList.get(player1), thePlayers.playersList.get(player2), numberOfGames);
             }
 
 
             //Set statuses for the players
             //Should this be in the match class?
             int player1gamesWon=0,player2gamesWon=0;
-            Player theWinner = theMatch.determineWinner();
+            Player theWinner = theMatch.determineWinner(theGui);
 
             player1gamesWon= theMatch.getPlayer1Games();
             player2gamesWon = theMatch.getPlayer2Games();
@@ -195,13 +198,17 @@ public class Round {
 
             System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
             System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
+            if (!theLoser.isDummy()) {
+                theGui.addReport(theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home.");
+            }
+
             //Set the loser to be inactive - this stops them being selected
             theLoser.setActive(false);
 
             //Add the winner to the list for the next round
             thisRoundWinners.addPlayer(theWinner);
+         }
 
-        }
         System.out.println("so now we have " + thisRoundWinners.getSize());
 
         return thisRoundWinners;

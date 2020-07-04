@@ -67,19 +67,19 @@ public class Match {
      @param player2 Player - the player who has been drawn as player2
      @param numberOfGames int - the number of games that the match requires.  This could stay the same throughout the tournament or be changed in each round
      **/
-    public Match(Player player1, Player player2, int numberOfGames) {
+    public Match(tt_gui theGui,Player player1, Player player2, int numberOfGames) {
         this.player1 = player1;
         this.player2 = player2;
         this.numberOfGames = numberOfGames;
     }
 
     /**
-     plays upto the prescribed number of games and keeps score.
+     plays up to the prescribed number of games and keeps score.
      When all games have been played, returns the winner of the match
      The match is over once one player gets over half of the max number of games
      @return Player - the winning player
      **/
-    protected Player determineWinner()
+    protected Player determineWinner(tt_gui theGui)
     {
         int numGamesPlayed = 0;
         while (numGamesPlayed < numberOfGames) {
@@ -90,9 +90,11 @@ public class Match {
             //process the result
             if (theGame.getPlayer1Points() > theGame.getPlayer2Points()) {
                 System.out.println("Win for player 1!");
+                theGui.addReport("Game won by "+getPlayer1().getFirstName() + " " + theGame.getPlayer1Points() +" to "+theGame.getPlayer2Points());
                 player1Games++;
             } else {
                 System.out.println("Win for player 2!");
+                theGui.addReport("Game won by "+getPlayer2().getFirstName() + " " + theGame.getPlayer2Points() +" to "+theGame.getPlayer1Points());
                 player2Games++;
 
             }
@@ -106,21 +108,26 @@ public class Match {
 
         //once enough games have been played, declare a winner
         if (player1Games > player2Games) {
-            System.out.println("player1 won the match " + player1Games + " games to " + player2Games);
+            System.out.println(player1.getFirstName()+" won the match " + player1Games + " games to " + player2Games);
+            theGui.addReport(player1.getFirstName()+" won the match " + player1Games + " games to " + player2Games);
             if (player1Games == player2Games + 1) {
                 System.out.println("That was a close one!");
+                theGui.addReport("That was a close one!");
             } else {
-                System.out.println("Player 1 dominated!");
+                System.out.println(player1.getFirstName()+ " dominated!");
+                theGui.addReport(player1.getFirstName()+ " dominated!");
             }
             return player1;
 
 
         } else {
-            System.out.println("player2 won the match " + player2Games + " games to " + player1Games);
+            System.out.println(player2.getFirstName()+" won the match " + player2Games + " games to " + player1Games);
+            theGui.addReport(player2.getFirstName() +" won the match " + player2Games + " games to " + player1Games);
             if (player2Games == player1Games + 1) {
-                System.out.println("That was a close one!");
+                theGui.addReport("That was a close one!");
             } else {
                 System.out.println("Player 2 dominated!");
+                theGui.addReport(player2.getFirstName()+ " dominated!");
             }
             return player2;
         }
