@@ -146,27 +146,83 @@ public class PlayersList {
             if (thePlayer.getPlayerID() == whichPlayer.getPlayerID()) {
                 //we have found the player in the master list
                 thePlayer.setGamesWon(theGamesWon);
-                System.out.println("added " + theGamesWon +" to the total games won for " + thePlayer.getFirstName() );
+                //System.out.println("added " + theGamesWon +" to the total games won for " + thePlayer.getFirstName() );
 
             }
         }
     }
     /**
-     writes out a list of players with their round reached, leaves out dummy players if reqd
-     @param dummyDisplay boolean - whether we want to show the stats for the dummy players in the tournament
-     @param thePlayers PlayersList - this is the master list we made at the start so contains all of the players
+     Writes out a list of players with their round reached, leaves out dummy players if reqd.
+     * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
+     * @param dummyDisplay boolean - whether we want to show the stats for the dummy players in the tournament
+     * @param thePlayers PlayersList - this is the master list we made at the start so contains all of the players
      We could run for a round list if we wanted to summarise the round for some reason
-     :TODO use the rounds reached and games won to determine 2nd and 3rd place
-     :TODO if possible, write the players out in place order rather than in series order
      **/
     public void writePlayersResults(tt_gui theGui, boolean dummyDisplay, PlayersList thePlayers){
+
+        theGui.addReport( "\nTournament Report");
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
                 if ((!dummyDisplay && !thisPlayer.isDummy()) || (dummyDisplay)) {
-                    System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
-                    theGui.addReport("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
+                    //System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
+                    theGui.addReport( thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" games in total");
                 }
             }
     }
 
+    public void writeNiceResults(tt_gui theGui, PlayersList thePlayers,int numRounds) {
+        int roundReached = 0;
+        //int maxRoundReached = 0;
+        int topPlayerIndex = -1;
+        int secondPlayerIndex = -1;
+        int thirdPlayerGames = 0;
+        int maxthirdPlayerGames = -1;
+        int thirdPlayerIndex = -1;
+        int jointthirdPlayerIndex = -1;
+
+
+        theGui.addReport( "\nThe Podium");
+        for (int i = 0; i < thePlayers.getSize(); i++) {
+            Player thisPlayer = thePlayers.playersList.get(i);
+            if (!thisPlayer.isDummy()) {
+                roundReached = thisPlayer.getRoundReached();
+                if (roundReached == numRounds + 1) {
+                    topPlayerIndex = i;
+                    //maxRoundReached = roundReached;
+                } else {
+                    if (roundReached == numRounds) {
+                        secondPlayerIndex = i;
+                    } else {
+                        if (roundReached == numRounds - 1) {
+                            thirdPlayerGames = thisPlayer.getGamesWon();
+
+                            if (thirdPlayerGames > maxthirdPlayerGames) {
+                                maxthirdPlayerGames = thirdPlayerGames;
+                                thirdPlayerIndex = i;
+                            } else {
+                                if (thirdPlayerGames == maxthirdPlayerGames) {
+                                    maxthirdPlayerGames = thirdPlayerGames;
+                                    jointthirdPlayerIndex = i;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Player thePlayer = thePlayers.playersList.get(topPlayerIndex);
+        //theGui.addReport("Winning player is " + thePlayers.playersList.get(topPlayerIndex));
+        theGui.addReport("The winning player is " + thePlayer.getFirstName() + " " + thePlayer.getLastName() + ". " + " They won " + thePlayer.getGamesWon() + " games in total");
+        thePlayer = thePlayers.playersList.get(secondPlayerIndex);
+        theGui.addReport("The second place player is " + thePlayer.getFirstName() + " " + thePlayer.getLastName() + ". " + " They won " + thePlayer.getGamesWon() + " games in total");
+        thePlayer = thePlayers.playersList.get(thirdPlayerIndex);
+        if (jointthirdPlayerIndex > -1) {
+            Player jointThird = thePlayers.playersList.get(jointthirdPlayerIndex);
+            theGui.addReport("There was a tie for third place between " + thePlayer.getFirstName() + " " + thePlayer.getLastName() + " and " + jointThird.getFirstName() + " " + jointThird.getLastName() + ". \nThey won " + thePlayer.getGamesWon() + " total games each");
+        } else {
+            theGui.addReport("The third place player is " + thePlayer.getFirstName() + " " + thePlayer.getLastName() + ". " + " They won " + thePlayer.getGamesWon() + " games in total");
+        }
+
+    }
 }

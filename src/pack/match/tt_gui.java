@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 
-
+/**
+ * tt_gui class.  Contains the objects that make up the GUI
+ */
 public class tt_gui {
     private JButton startTournamentButton;
     private JPanel mainPanel;
@@ -26,10 +28,17 @@ public class tt_gui {
     private double cashPrize;
     private String nonCashPrize;
 
+    /**
+     addReport - Writes a line to the match report text area
+     @param strText String - The string of text to write
+     **/
     public void addReport(String strText){
         txtAreaMatchReport.append("\n" + strText);
     }
 
+    /**
+     constructor
+     **/
 
     public tt_gui() {
 
@@ -48,8 +57,8 @@ public class tt_gui {
                         }
                         else {
                             //startTournamentButton.setEnabled(true);
-                            String theLabelStr = "Number of players chosen: " + numPlayers;
-                            System.out.println(theLabelStr);
+                            //String theLabelStr = "Number of players chosen: " + numPlayers;
+                            //System.out.println(theLabelStr);
                             startTournamentButton.setEnabled(true);
                             txtAreaMatchReport.setText("Tournament parameters successfully validated. \n Press 'Start Tournament' to run the tournament.");
                         }
@@ -58,7 +67,7 @@ public class tt_gui {
                             nonCashPrize = txtNonCashPrize.getText();
                         }
                         catch (NumberFormatException e2){
-                            if(e2.getMessage()=="empty String"){
+                            if(e2.getMessage().equals("empty String")){
                                 cashPrize=0;
                             }
                             else {
@@ -84,9 +93,9 @@ public class tt_gui {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                    String theLabel = "Number of players chosen: " + numPlayers;
-                    System.out.println(theLabel);
-                    txtAreaMatchReport.setText(theLabel);
+                    //String theLabel = "Number of players chosen: " + numPlayers;
+                    //System.out.println(theLabel);
+                    txtAreaMatchReport.setText("");
 
                     //lblMatchReport.setText(theLabel);
                     try {

@@ -44,8 +44,9 @@ public abstract class AbstractTournament {
      Meaning that there will always be a prize presentation that can be called at the end of every tournament.
     the NumberFormat from standard java library adds the currency symbol from the default locale and gives the right number of places after the decimal point
     :TODO if no prize money then maybe need to do something different - or shall we handle that in override in the Tournament class?
-     @param theWinner Player
-     @param thePrize double
+     @param theWinner Player The player who is being awarded the prize
+     @param thePrize double Prize money
+     @param otherPrize string - any non-cash prize e.g. trophy, flowers, chocolates
     **/
     void presentPrize(tt_gui theGui,Player theWinner, double thePrize,String otherPrize)
     {
@@ -75,7 +76,7 @@ public abstract class AbstractTournament {
 
         }
 
-        System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
+        //System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
         theGui.addReport(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
     }
 

@@ -5,7 +5,7 @@ import com.company.Player;
 /**
  * Match is responsible for generating games until the game limit is reached
  * and for declaring a winner
- */
+  */
 public class Match {
     //player1 is set as the winner in FixedMatch so it needs to be visible to that
     //a protected variable can only be seen by classes in the same package or by derived classes
@@ -63,6 +63,7 @@ public class Match {
 
     /**
     constructor
+     @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
      @param player1 Player - the player who has been drawn as player1
      @param player2 Player - the player who has been drawn as player2
      @param numberOfGames int - the number of games that the match requires.  This could stay the same throughout the tournament or be changed in each round
@@ -77,7 +78,8 @@ public class Match {
      plays up to the prescribed number of games and keeps score.
      When all games have been played, returns the winner of the match
      The match is over once one player gets over half of the max number of games
-     @return Player - the winning player
+     * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
+     * @return Player - the winning player
      **/
     protected Player determineWinner(tt_gui theGui)
     {
@@ -89,11 +91,11 @@ public class Match {
             theGame.playGame();
             //process the result
             if (theGame.getPlayer1Points() > theGame.getPlayer2Points()) {
-                System.out.println("Win for player 1!");
+                //System.out.println("Win for player 1!");
                 theGui.addReport("Game won by "+getPlayer1().getFirstName() + " " + theGame.getPlayer1Points() +" to "+theGame.getPlayer2Points());
                 player1Games++;
             } else {
-                System.out.println("Win for player 2!");
+                //System.out.println("Win for player 2!");
                 theGui.addReport("Game won by "+getPlayer2().getFirstName() + " " + theGame.getPlayer2Points() +" to "+theGame.getPlayer1Points());
                 player2Games++;
 
@@ -108,25 +110,25 @@ public class Match {
 
         //once enough games have been played, declare a winner
         if (player1Games > player2Games) {
-            System.out.println(player1.getFirstName()+" won the match " + player1Games + " games to " + player2Games);
+            //System.out.println(player1.getFirstName()+" won the match " + player1Games + " games to " + player2Games);
             theGui.addReport(player1.getFirstName()+" won the match " + player1Games + " games to " + player2Games);
             if (player1Games == player2Games + 1) {
                 System.out.println("That was a close one!");
                 theGui.addReport("That was a close one!");
             } else {
-                System.out.println(player1.getFirstName()+ " dominated!");
+                //System.out.println(player1.getFirstName()+ " dominated!");
                 theGui.addReport(player1.getFirstName()+ " dominated!");
             }
             return player1;
 
 
         } else {
-            System.out.println(player2.getFirstName()+" won the match " + player2Games + " games to " + player1Games);
+            //System.out.println(player2.getFirstName()+" won the match " + player2Games + " games to " + player1Games);
             theGui.addReport(player2.getFirstName() +" won the match " + player2Games + " games to " + player1Games);
             if (player2Games == player1Games + 1) {
                 theGui.addReport("That was a close one!");
             } else {
-                System.out.println("Player 2 dominated!");
+                //System.out.println("Player 2 dominated!");
                 theGui.addReport(player2.getFirstName()+ " dominated!");
             }
             return player2;

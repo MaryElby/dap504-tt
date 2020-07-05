@@ -3,6 +3,8 @@ package pack.match;
 import com.company.Player;
 import com.company.PlayersList;
 
+import java.text.NumberFormat;
+
 /**
  * Tournament class.  Contains rounds
  * this class is an implementation of the abstract class AbstractTournament
@@ -41,8 +43,15 @@ public class Tournament extends AbstractTournament {
         this.numRounds = setNumberOfRounds(numPlayers+numByes);
         this.prizePot = prizePot;
         this.prize = otherPrize;
+
             theGui.addReport("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
-            theGui.addReport(numRounds + " rounds.  Total prize = " + prizePot + " and " + otherPrize);
+            if (otherPrize.contentEquals("") ) {
+                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
+            }
+            else
+            {
+                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot) + " and " + otherPrize);
+            }
     }
 
     /**
@@ -85,7 +94,7 @@ public class Tournament extends AbstractTournament {
              numByes = counter - numberOfPlayers;
          }
      }
-        System.out.println("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
+        //System.out.println("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
 
      return numByes;
 
@@ -97,6 +106,14 @@ public class Tournament extends AbstractTournament {
      * @param theMasterList PlayersList -  a copy of thePlayers that will not be overwritten by subsequent rounds
      */
     void runTournament(tt_gui theGui, PlayersList thePlayers, PlayersList theMasterList) {
+        //show the list of players
+        for (int i=0;i< thePlayers.getSize();i++){
+            Player thisPlayer = thePlayers.playersList.get(i);
+            if (!thisPlayer.isDummy())  {
+                //System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
+                theGui.addReport( "Player " + (i+1) + " is " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName());
+            }
+        }
         //run the tournament
         for (int i = 0; i < this.numRounds; i++) {
             //System.out.println("Round " + i+1);
@@ -107,8 +124,8 @@ public class Tournament extends AbstractTournament {
         Player testPlayer = thePlayers.playersList.get(0);
         //set winner's round reached otherwise it stays at 0
         theMasterList.SetLoser(theMasterList, testPlayer, numRounds + 1);
-        System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
-        theGui.addReport("And the tournament winner is <drum roll please> ... \n" + testPlayer.getFirstName() + " " + testPlayer.getLastName() );
+        //System.out.println("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
+        theGui.addReport("\nAnd the tournament winner is <drum roll please> ... \n" + testPlayer.getFirstName() + " " + testPlayer.getLastName() );
         //theGui.addReport("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
         //present the prize
         this.presentPrize(theGui,testPlayer, this.prizePot,this.prize);
@@ -118,6 +135,7 @@ public class Tournament extends AbstractTournament {
         //Can write out the dummy players as well if wanted by changing the first parameter to true.
         //Good for testing but not so much for proper tournament
         theMasterList.writePlayersResults(theGui,false, theMasterList);
+        theMasterList.writeNiceResults(theGui,theMasterList,this.numRounds);
     }
 }
 

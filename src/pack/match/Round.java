@@ -17,18 +17,20 @@ public class Round {
 
     /**
      * constructor
+     * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
      * @param RoundNumber int - the number of the round.  we use it to calculate how many games each match will be and for display in the results
      */
     public Round(tt_gui theGui,int RoundNumber) {
         this.roundNumber = RoundNumber;
         numberOfGames= (RoundNumber*2)+1;
-        System.out.println("this round the matches are " + numberOfGames + " games each.");
-        theGui.addReport("Round "+roundNumber +". This round the matches are " + numberOfGames + " games each.");
+        //System.out.println("this round the matches are " + numberOfGames + " games each.");
+        theGui.addReport("\nRound "+roundNumber +". This round the matches are " + numberOfGames + " games each.");
     }
 
     /**
-     *    this is the heart of the Round object - to draw pairs from the list and send them off to matches
+     *   doPairing - this is the heart of the Round object - to draw pairs from the list and send them off to matches
      *    It also deals with updating the players' stats for the round, for reporting at the end of the tournament
+     * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
      * @param thePlayers PlayersList - list of players in this round
      * @param masterList PlayersList - master list of all players in the tournament
      * @return PlayersList - list of players for the next round
@@ -37,25 +39,26 @@ public class Round {
         int numPlayers = thePlayers.getTotalPlayers();
         int numByes= thePlayers.getNumberOfByes();
         int numPairs = thePlayers.getSize() /2;
-        System.out.println("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " pairs");
-        theGui.addReport("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " pairs");
-        for (int i=0;i< thePlayers.getSize();i++){
-            Player testPlayer = thePlayers.playersList.get(i);
-            System.out.println("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
-            theGui.addReport("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
-        }
+        //System.out.println("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " pairs");
+        //theGui.addReport("Round " + this.roundNumber +" We have " + thePlayers.getSize() + " so that's " + numPairs + " matches");
+//        for (int i=0;i< thePlayers.getSize();i++){
+//            Player testPlayer = thePlayers.playersList.get(i);
+//            //System.out.println("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
+//            theGui.addReport("player "+ i+" is " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID() );
+//        }
 
-        //make a new list for the winners of this round's matches - we know the size is half the size of the incoming list
+        //make a new list for the winners of this round's matches - although we don't have to specify the size,
+        // we know it will be half the size of the incoming list
         //this will be the list sent to the next round
         PlayersList thisRoundWinners = new PlayersList();
 
-        boolean goodChoice1 = false;
-        boolean goodChoice2 = false;
-        int player1=0;
-        int player2=0;
-        //for (int i=1;i< numPairs;i++)
-        int countPairs=0;
-        int countByes=0;
+        boolean goodChoice1 = false;  //boolean to hold whether the player1 picked is eligible
+        boolean goodChoice2 = false;  //boolean to hold whether the player2 picked is eligible
+        int player1=0; // the list element number for the player1 candidate
+        int player2=0; // the list element number for the player2 candidate
+        int countPairs=0;  //counter of the pairs drawn so far
+        int countByes=0;   //counter of the number of dummy players drawn so far
+
         while (countPairs < numPairs)
         {
             goodChoice1 = false;
@@ -116,7 +119,6 @@ public class Round {
                         //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
                         //otherwise we will end up with 2 dummies left and they can't play each other since neither can be player1
                         //causes a perpetual loop
-                        //if ((numPairs - countPairs == thePlayers.getNumberOfByes() - countByes) && thePlayers.playersList.get(player2).dummy == false)
                         if ((numPairs - countPairs == numByes - countByes) && thePlayers.playersList.get(player2).isDummy() == false)
                         {
                              //reject the real player
@@ -137,14 +139,12 @@ public class Round {
                         }
 
                     }
-
                 }
-
             }
             ///Add 1 to the local count of pairs created
             countPairs++;
-            System.out.println("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
-            theGui.addReport("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
+            //System.out.println("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
+            theGui.addReport("Match "+ countPairs + ": " + thePlayers.playersList.get(player1).getFirstName() + " " + thePlayers.playersList.get(player1).getLastName() +" vs "+ thePlayers.playersList.get(player2).getFirstName() + " " + thePlayers.playersList.get(player2).getLastName());
             //System.out.println("Count of Pairs is now " + countPairs);
 
             //need to declare the match here because a different object will be instantiated depending on whether
@@ -174,7 +174,7 @@ public class Round {
             int theLoserGamesWon=0;
             int theWinnerGamesWon=0;
 
-            System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
+            //System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
 
             //Map the winner and loser to player1 and player2
             Player theLoser;
@@ -196,8 +196,8 @@ public class Round {
             masterList.AddGamesWon(masterList,theWinner,theWinnerGamesWon);
             masterList.AddGamesWon(masterList,theLoser,theLoserGamesWon);
 
-            System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
-            System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
+            //System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
+            //System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
             if (!theLoser.isDummy()) {
                 theGui.addReport(theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home.");
             }
