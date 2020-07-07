@@ -3,7 +3,7 @@ package com.company;
  Player class.  Holds all the needed attributes of a player
  **/
 public class Player {
-//make all the attributes private so they can only be accessed with getters/setters/methods in this class
+//make all the attributes private so they can only be accessed with getters/setters/methods in this class (Encapsulation)
     private String firstName,lastName;
     private int playerID =0;   //need to be able to match players in master list to players in round list
     private boolean active=true; //every player starts as active
@@ -86,7 +86,7 @@ public class Player {
         return dummy;
     }
     /**
-     * constructor (overloaded)
+     * constructor (overloaded) Polymorphism
      this is the constructor for a normal (real) player
      @param firstName string
      @param lastName string

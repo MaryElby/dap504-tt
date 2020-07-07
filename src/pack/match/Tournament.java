@@ -42,16 +42,25 @@ public class Tournament extends AbstractTournament {
         this.numPlayers = numberOfPlayers;
         this.numRounds = setNumberOfRounds(numPlayers+numByes);
         this.prizePot = prizePot;
-        this.prize = otherPrize;
+        //setPrizePot(prizePot);
+            try {
+                this.prize = otherPrize;
 
-            theGui.addReport("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
-            if (otherPrize.contentEquals("") ) {
+                    if (this.prize.contentEquals("") ) {
+                        theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
+                    }
+                    else
+                    {
+                        theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot) + " and " + this.prize);
+                    }
+            }
+            catch (NullPointerException e){
                 theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
             }
-            else
-            {
-                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot) + " and " + otherPrize);
-            }
+
+            theGui.addReport("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
+
+
     }
 
     /**
@@ -128,14 +137,15 @@ public class Tournament extends AbstractTournament {
         theGui.addReport("\nAnd the tournament winner is <drum roll please> ... \n" + testPlayer.getFirstName() + " " + testPlayer.getLastName() );
         //theGui.addReport("And the tournament winner is <drum roll please> ... " + testPlayer.getFirstName() + " " + testPlayer.getLastName() + " " + testPlayer.getPlayerID());
         //present the prize
-        this.presentPrize(theGui,testPlayer, this.prizePot,this.prize);
-
+        this.presentPrize(theGui,testPlayer, prizePot,this.prize);
+        //Write out the podium players
+        theMasterList.writePodium(theGui,theMasterList,this.numRounds);
         //write out the results for each player
         //this is where we need the master list which still has all the players in it
         //Can write out the dummy players as well if wanted by changing the first parameter to true.
         //Good for testing but not so much for proper tournament
         theMasterList.writePlayersResults(theGui,false, theMasterList);
-        theMasterList.writeNiceResults(theGui,theMasterList,this.numRounds);
+
     }
 }
 

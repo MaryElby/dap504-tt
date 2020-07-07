@@ -5,8 +5,9 @@ import com.company.Player;
 /**
  * Game plays points by tossing a virtual coin to decide who to award the point to.
  * When either a player meets the win criteria or the total points played has reached the points threshold, the game is over.
+ * This class can only be accessed within the match package
  */
-public class Game {
+class Game {
 
     private int player1Points=0;
     private int player2Points=0;
@@ -18,15 +19,17 @@ public class Game {
     /**
      * Getter for player1Points
      * @return number of points won by player1
+     * package-private
      */
-    public int getPlayer1Points() {
+    int getPlayer1Points() {
         return player1Points;
     }
     /**
      * Getter for player2Points
      * @return number of points won by player2
+     * package-private
      */
-    public int getPlayer2Points() {
+    int getPlayer2Points() {
         return player2Points;
     }
 
@@ -62,7 +65,7 @@ public class Game {
     }
     /**
      * tossCoin - generates a random number < 1 and multiplies it by 2.  Returns the result rounded to an int.
-     * 1 is
+     * 1 is a point for player1, 0 is a point for player2
      */
     private int tossCoin(){
         //toss a coin to determine winner of a point

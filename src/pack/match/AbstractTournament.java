@@ -52,7 +52,7 @@ public abstract class AbstractTournament {
     {
         String prizeStr;
 
-        if ((thePrize==0) && (otherPrize==null)) {
+        if ((thePrize==0) && (otherPrize.contentEquals(""))) {
             prizeStr = "kudos";
         }
         else

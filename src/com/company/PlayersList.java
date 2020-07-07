@@ -17,6 +17,7 @@ public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
     //private int totalPlayers;
+    public List<Player> playersList = new ArrayList<Player>();
     /**
      getter for totalPlayers
      @return totalPlayers - the total number of players in this list
@@ -32,7 +33,7 @@ public class PlayersList {
      **/
     public int getSize() {
         return this.playersList.size();
-        //return this.numberOfPlayers;
+
     }
     /**
      getter for numberOfByes
@@ -49,7 +50,7 @@ public class PlayersList {
         return (this.numberOfPlayers);
     }
 
-    public List<Player> playersList = new ArrayList<Player>();
+
     /**
      constructor
         we don't need to tell the constructor how many elements are in the list
@@ -170,7 +171,7 @@ public class PlayersList {
             }
     }
 
-    public void writeNiceResults(tt_gui theGui, PlayersList thePlayers,int numRounds) {
+    public void writePodium(tt_gui theGui, PlayersList thePlayers,int numRounds) {
         int roundReached = 0;
         //int maxRoundReached = 0;
         int topPlayerIndex = -1;
@@ -181,7 +182,7 @@ public class PlayersList {
         int jointthirdPlayerIndex = -1;
 
 
-        theGui.addReport( "\nThe Podium");
+        theGui.addReport( "\n<b>The Podium</b>");
         for (int i = 0; i < thePlayers.getSize(); i++) {
             Player thisPlayer = thePlayers.playersList.get(i);
             if (!thisPlayer.isDummy()) {

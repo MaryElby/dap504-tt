@@ -56,17 +56,16 @@ public class tt_gui {
                             txtNumPlayers.requestFocusInWindow();
                         }
                         else {
-                            //startTournamentButton.setEnabled(true);
-                            //String theLabelStr = "Number of players chosen: " + numPlayers;
-                            //System.out.println(theLabelStr);
+
                             startTournamentButton.setEnabled(true);
                             txtAreaMatchReport.setText("Tournament parameters successfully validated. \n Press 'Start Tournament' to run the tournament.");
                         }
+                       nonCashPrize = txtNonCashPrize.getText();
                         try{
                             cashPrize = Double.parseDouble(txtCashPrize.getText());
-                            nonCashPrize = txtNonCashPrize.getText();
+
                         }
-                        catch (NumberFormatException e2){
+                        catch (Exception e2){
                             if(e2.getMessage().equals("empty String")){
                                 cashPrize=0;
                             }
