@@ -17,7 +17,7 @@ public class PlayersList {
     private int numberOfPlayers;
     private int numberOfByes;
     //private int totalPlayers;
-    public List<Player> playersList = new ArrayList<Player>();
+    public List<Player> playersList = new ArrayList<>();
     /**
      getter for totalPlayers
      @return totalPlayers - the total number of players in this list
@@ -47,6 +47,7 @@ public class PlayersList {
      @return int - the number of real players in this list
      **/
     public int getNumberOfPlayers() {
+
         return (this.numberOfPlayers);
     }
 
@@ -75,14 +76,14 @@ public class PlayersList {
         this.numberOfPlayers=numberOfPlayers;
         ReadJson[] data = gson.fromJson(jsonReader, ReadJson[].class);
 
+            //for (int i = 0; i < numberOfPlayers; i++) {
             for (int i = 0; i < numberOfPlayers; i++) {
-                ReadJson readJson = data[i];
+                ReadJson readJson =  data[i];
                 //Add the player to the list
                 playersList.add(new Player(readJson.getFirstName(), readJson.getLastName(), i));
             }
 
     }
-
 
     //these are public because they are called from the Round to add players to the list for the next round
     /**
@@ -122,6 +123,7 @@ public class PlayersList {
  @param numberOfByes int - how many dummy players are wanted
  **/
     public void addByes(int numberOfPlayers,int numberOfByes){
+
         this.numberOfByes = numberOfByes;
         for (int i = 0; i < numberOfByes; i++) {
 
@@ -164,25 +166,31 @@ public class PlayersList {
         theGui.addReport( "\nTournament Report");
             for (int i=0;i< thePlayers.getSize();i++){
                 Player thisPlayer = thePlayers.playersList.get(i);
-                if ((!dummyDisplay && !thisPlayer.isDummy()) || (dummyDisplay)) {
+                if (dummyDisplay || !thisPlayer.isDummy()) {
                     //System.out.println("The player " + i + " - " + thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" in total");
                     theGui.addReport( thisPlayer.getFirstName() + " " + thisPlayer.getLastName() + " reached round " + thisPlayer.getRoundReached() + " and won "+ thisPlayer.getGamesWon()+" games in total");
                 }
             }
     }
 
+    /**
+     * writePodium - writes out the top 3 in order.  If there is a tie for 3rd place both players are written out
+     * this is called from the tournament so needs to be public as that is in a different package
+     * @param theGui tt_gui - handle for the GUI so we can send messages to it to be displayed
+     * @param thePlayers PlayersList - list of all the players in the tournament
+     * @param numRounds int - the number of rounds that were in the tournament
+     */
     public void writePodium(tt_gui theGui, PlayersList thePlayers,int numRounds) {
-        int roundReached = 0;
-        //int maxRoundReached = 0;
+        int roundReached;
         int topPlayerIndex = -1;
         int secondPlayerIndex = -1;
-        int thirdPlayerGames = 0;
+        int thirdPlayerGames;
         int maxthirdPlayerGames = -1;
         int thirdPlayerIndex = -1;
         int jointthirdPlayerIndex = -1;
 
+        theGui.addReport( "\nThe Podium");
 
-        theGui.addReport( "\n<b>The Podium</b>");
         for (int i = 0; i < thePlayers.getSize(); i++) {
             Player thisPlayer = thePlayers.playersList.get(i);
             if (!thisPlayer.isDummy()) {
@@ -202,7 +210,7 @@ public class PlayersList {
                                 thirdPlayerIndex = i;
                             } else {
                                 if (thirdPlayerGames == maxthirdPlayerGames) {
-                                    maxthirdPlayerGames = thirdPlayerGames;
+                                    //maxthirdPlayerGames = thirdPlayerGames;
                                     jointthirdPlayerIndex = i;
                                 }
                             }

@@ -1,17 +1,15 @@
 package pack.match;
 
+
 import com.company.PlayersList;
-import pack.match.tt_gui;
+
 
 import java.io.FileNotFoundException;
-
-//import pack.match.Round;
 
 /**
  * tournament runner class.  This is called from the GUI
  */
-public class tRunner {
-
+class tRunner {
     /**
      * execution starts here
      * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
@@ -20,15 +18,16 @@ public class tRunner {
      * @param nonCashPrize String - non-cash prize entered by user.  May be null if required.
      * @throws FileNotFoundException exception - standard exception for if the JSON is not found.
      */
-    public  void doTournament(tt_gui theGui, int numPlayers,double cashPrize,String nonCashPrize) throws FileNotFoundException {
-
-        //Create a tournament with the selected number of players and prize fund.
+    //package-private to protect against other packages
+    void doTournament(tt_gui theGui, int numPlayers, double cashPrize, String nonCashPrize) throws FileNotFoundException {
+        //Create a tournament with the selected number of players and prizes.
         Tournament theTournament= new Tournament(theGui,numPlayers,cashPrize,nonCashPrize);
 
         //The tournament will have created as many bye players as needed to
         //make up the required number of players to run
         int numberOfByes = theTournament.getNumByes();
         int totalPlayers = numPlayers+numberOfByes;
+
         //prob overkill but we could get these numbers from the tournament instead if we wanted e.g.
         //int totalPlayers = theTournament.getNumPlayers()+theTournament.getNumByes();
         //Create a list of the total players for the tournament

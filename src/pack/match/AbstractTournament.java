@@ -36,14 +36,14 @@ public abstract class AbstractTournament {
      @param numberOfPlayers - number of players (both real and dummy)
      @return numberOfRounds - the number of rounds needed based on the total number of players
      */
-    abstract int setNumberOfRounds(int numberOfPlayers);
+    //abstract int setNumberOfRounds(int numberOfPlayers);
+    abstract int setNumberOfRounds(long numberOfPlayers);
 
     /**
     a concrete method to present the entire prize fund to the winner.  This could be overridden if different prize allocation is required.
     if a subclass does not implement its own presentPrize method then this one will be used.
      Meaning that there will always be a prize presentation that can be called at the end of every tournament.
     the NumberFormat from standard java library adds the currency symbol from the default locale and gives the right number of places after the decimal point
-    :TODO if no prize money then maybe need to do something different - or shall we handle that in override in the Tournament class?
      @param theWinner Player The player who is being awarded the prize
      @param thePrize double Prize money
      @param otherPrize string - any non-cash prize e.g. trophy, flowers, chocolates
@@ -60,10 +60,7 @@ public abstract class AbstractTournament {
             if (thePrize>0) {
                 try {
                     prizeStr = NumberFormat.getCurrencyInstance().format(thePrize);
-                    if (otherPrize.contentEquals("") ) {
-                        //prizeStr = prizeStr + "!";
-                    }
-                    else{
+                    if (!otherPrize.contentEquals("") ) {
                         prizeStr = prizeStr + " and " + otherPrize;
                     }
                 } catch (NumberFormatException e) {

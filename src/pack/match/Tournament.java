@@ -15,7 +15,8 @@ public class Tournament extends AbstractTournament {
     private int numRounds;
     private final double prizePot;
     private String prize;
-    private int numPlayers;
+    //private int numPlayers;
+    private long numPlayers;
     private int numByes;
 
 
@@ -36,7 +37,8 @@ public class Tournament extends AbstractTournament {
      * @param prizePot double - the prize fund (if there is one)
      * @param otherPrize string - non-cash prize (if there is one)
      */
-        public Tournament(tt_gui theGui, int numberOfPlayers, double prizePot, String otherPrize) {
+        //public Tournament(tt_gui theGui, int numberOfPlayers, double prizePot, String otherPrize) {
+        public Tournament(tt_gui theGui, long numberOfPlayers, double prizePot, String otherPrize) {
         this.numByes = calcNumberOfByes(numberOfPlayers);
 
         this.numPlayers = numberOfPlayers;
@@ -68,9 +70,11 @@ public class Tournament extends AbstractTournament {
      * @param numberOfPlayers int total number of players in the tournament
      * @return number of rounds int calculated number of rounds needed
      */
-    protected int setNumberOfRounds(int numberOfPlayers){
+    //protected int setNumberOfRounds(int numberOfPlayers){
+        protected int setNumberOfRounds(long numberOfPlayers){
         int rounds=0;
-        int counter=numberOfPlayers;
+        //int counter=numberOfPlayers;
+        long counter=numberOfPlayers;
         System.out.println("Number of players = " + numberOfPlayers);
 
         while (counter >1){
@@ -90,17 +94,19 @@ public class Tournament extends AbstractTournament {
      * @param numberOfPlayers int - number of real players
      * @return number of byes int - calculated number of dummy players needed
      */
-    private int calcNumberOfByes(int numberOfPlayers){
+    //private int calcNumberOfByes(int numberOfPlayers){
+    private int calcNumberOfByes(long numberOfPlayers){
         //start at 1 and keep doubling until counter > numberOfPlayers.
         //then the number of byes needed is counter - numberOfPlayers
      int numByes=0;
-     int counter=1;
-
+     //int counter=1;
+     long counter=1;
 
      while (counter< numberOfPlayers){
          counter= counter *2;
          if (counter > numberOfPlayers){
-             numByes = counter - numberOfPlayers;
+             //numByes = counter - numberOfPlayers;
+             numByes = (int) (counter - numberOfPlayers);
          }
      }
         //System.out.println("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
