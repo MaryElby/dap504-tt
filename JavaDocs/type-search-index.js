@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"pack.match","l":"AbstractTournament"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"pack.match","l":"Match"},{"p":"pack.player","l":"Player"},{"p":"pack.player","l":"PlayersList"},{"p":"pack.player","l":"ReadJson"},{"p":"pack.match","l":"Round"},{"p":"pack.match","l":"Tournament"},{"p":"pack.match","l":"tt_gui"}]

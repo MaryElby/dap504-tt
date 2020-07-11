@@ -1,8 +1,7 @@
 package pack.match;
 
-import com.company.Player;
+import pack.player.Player;
 import java.text.NumberFormat;
-import java.util.Objects;
 
 /**
  * Abstract class to enforce the setRounds method in derived classes

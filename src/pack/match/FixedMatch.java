@@ -1,6 +1,6 @@
 package pack.match;
 
-import com.company.Player;
+import pack.player.Player;
 /**
  FixedMatch extends the Match class with an overloaded determineWinner method (inheritance)
  For use when player2 is a dummy

@@ -54,7 +54,7 @@
         </constraints>
         <properties>
           <labelFor value="b4f3a"/>
-          <text value="Choose the number of &amp;Players (2-128):"/>
+          <text value="Choose the number of &amp;Players (2-1000):"/>
         </properties>
       </component>
       <component id="b4f3a" class="javax.swing.JTextField" binding="txtNumPlayers">

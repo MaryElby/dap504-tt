@@ -1,7 +1,7 @@
 package pack.match;
 
 
-import com.company.PlayersList;
+import pack.player.PlayersList;
 
 
 import java.io.FileNotFoundException;

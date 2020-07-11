@@ -1,7 +1,5 @@
 package pack.match;
 
-import com.company.Player;
-
 /**
  * Game plays points by tossing a virtual coin to decide who to award the point to.
  * When either a player meets the win criteria or the total points played has reached the points threshold, the game is over.

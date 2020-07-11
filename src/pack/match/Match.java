@@ -1,6 +1,6 @@
 package pack.match;
 
-import com.company.Player;
+import pack.player.Player;
 
 /**
  * Match is responsible for generating games until the game limit is reached

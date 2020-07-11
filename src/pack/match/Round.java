@@ -1,8 +1,8 @@
 //moved this into the match package so that it could access the match's protected getplayer1 and getplayer2 methods
 package pack.match;
 
-import com.company.Player;
-import com.company.PlayersList;
+import pack.player.Player;
+import pack.player.PlayersList;
 
 /**
  *     the Round class is responsible for creating pairings

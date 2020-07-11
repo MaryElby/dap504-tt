@@ -1,7 +1,7 @@
 package pack.match;
 
-import com.company.Player;
-import com.company.PlayersList;
+import pack.player.Player;
+import pack.player.PlayersList;
 
 import java.text.NumberFormat;
 
