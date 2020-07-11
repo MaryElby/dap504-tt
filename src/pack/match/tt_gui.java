@@ -41,13 +41,20 @@ public class tt_gui {
         txtAreaMatchReport.append("\n" + strText);
     }
 
-
+    /**
+     startReport - Writes a line to the match report text area without a carriage return first.
+     This is called from the tournament so package-private
+     @param strText String - The string of text to write
+     **/
+    void startReport(String strText){
+        txtAreaMatchReport.setText(strText);
+    }
 
     /**
      constructor
      **/
 
-    public tt_gui() {
+    private tt_gui() {
 
         //cmdStartTournament.setEnabled(false);
         cmdSetTournament.addActionListener(new ActionListener()

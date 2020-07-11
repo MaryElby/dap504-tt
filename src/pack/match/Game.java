@@ -1,5 +1,7 @@
 package pack.match;
 
+import java.util.Random;
+
 /**
  * Game plays points by tossing a virtual coin to decide who to award the point to.
  * When either a player meets the win criteria or the total points played has reached the points threshold, the game is over.
@@ -33,13 +35,16 @@ class Game {
 
     /**
      * playGame - this is the game's primary purpose
+     * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
      */
-    protected void playGame() {
+    protected void playGame(tt_gui theGui) {
 
         int pointCounter = 0;
 
+        //toss a coin to decide who wins the point
         while (pointCounter < pointsMax) {
-            int coin = tossCoin();
+            //int coin = tossCoin();
+            int coin = tossCoin(2);
             if (coin ==1) {
                 player1Points++;
             }
@@ -47,26 +52,29 @@ class Game {
                 player2Points++;
                 }
 
+            pointCounter++;
             //if one player has reached 11 and is 2 ahead of the other the game is over.
             //get-out to stop game going on for ever for evenly matched players.
             if ((player1Points>=pointsToWin && player2Points<=player1Points-minPointsGap) || (player2Points>=pointsToWin && player1Points<=player2Points-minPointsGap) || (pointCounter==pointsMax))
             {
-                System.out.println("Game finished " + player1Points + " to " +player2Points);
+
                 if (pointCounter==pointsMax){
-                    System.out.println("What a marathon!");
+                    theGui.addReport("What a marathon!");
                 }
                 return;
             }
-            pointCounter++;
 
         }
     }
     /**
-     * tossCoin - generates a random number < 1 and multiplies it by 2.  Returns the result rounded to an int.
+     * tossCoin - generates a random number < 1 and rounds it.  Returns the result cast to an int.
      * 1 is a point for player1, 0 is a point for player2
      */
-    private int tossCoin(){
-        //toss a coin to determine winner of a point
-        return  (int) (Math.random() * 2) ;
+
+    private static int tossCoin(int upperRange){
+            //toss a virtual coin to determine winner of a point
+
+        Random random = new Random();
+        return random.nextInt(upperRange);
     }
 }

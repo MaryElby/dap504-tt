@@ -12,20 +12,6 @@ public abstract class AbstractTournament {
      variable for prize money
      **/
     private double prizePot;
-//    /**
-//     getter for prizePot
-//     @return prizePot
-//     **/
-//    public double getPrizePot() {
-//        return prizePot;
-//    }
-//    /**
-//     setter for prizePot
-//     @param prizePot double - total prize fund.  Can be 0
-//     **/
-//    public void setPrizePot(double prizePot) {
-//        this.prizePot = prizePot;
-//    }
 
     /**
      Abstract method signature ensures that every Tournament created sets its number of rounds.
@@ -35,8 +21,7 @@ public abstract class AbstractTournament {
      @param numberOfPlayers - number of players (both real and dummy)
      @return numberOfRounds - the number of rounds needed based on the total number of players
      */
-    //abstract int setNumberOfRounds(int numberOfPlayers);
-    abstract int setNumberOfRounds(long numberOfPlayers);
+    abstract int setNumberOfRounds(int numberOfPlayers);
 
     /**
     a concrete method to present the entire prize fund to the winner.  This could be overridden if different prize allocation is required.
@@ -50,7 +35,7 @@ public abstract class AbstractTournament {
     void presentPrize(tt_gui theGui,Player theWinner, double thePrize,String otherPrize)
     {
         String prizeStr;
-
+        //format the prize string depending on the parameters chosen
         if ((thePrize==0) && (otherPrize.contentEquals(""))) {
             prizeStr = "kudos";
         }
@@ -72,7 +57,7 @@ public abstract class AbstractTournament {
 
         }
 
-        //System.out.println(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
+        //print out the winner and their prize
         theGui.addReport(theWinner.getFirstName() + " " + theWinner.getLastName()+ " takes the prize of " + prizeStr + ". Well done!");
     }
 

@@ -12,13 +12,12 @@ class FixedMatch extends Match {
         super(theGui,player1, player2, numberOfGames);
     }
 
-    /** determineWinner (polymorphism)
+    /** determineWinner (inheritance)
      * in a fixed match the winner has to be player1
     Even though this is a derived class from Match it cannot see Match's private variables without the getter
      */
     protected Player determineWinner(tt_gui theGui) {
 
-            System.out.println(getPlayer1().getFirstName() + " got a bye!");
             theGui.addReport(getPlayer1().getFirstName() + " got a bye!");
             return getPlayer1();
     }

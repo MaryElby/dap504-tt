@@ -9,18 +9,19 @@ import pack.player.PlayersList;
  *     for the matches within it.
  *     It is passed a list of players and pairs them up
  *     then sends each pair to a Match.  Returning a winner from each match as a list of players
+ *     package-private
  */
-public class Round {
+class Round {
     //encapsulating the round number as it is only used internally.
     private final int roundNumber;
     private final int numberOfGames;
 
     /**
-     * constructor
+     * constructor      package-private
      * @param theGui tt_gui - Handle for the GUI so we can ask it to print messages to its textbox
      * @param RoundNumber int - the number of the round.  we use it to calculate how many games each match will be and for display in the results
      */
-    public Round(tt_gui theGui,int RoundNumber) {
+    Round(tt_gui theGui, int RoundNumber) {
         this.roundNumber = RoundNumber;
         numberOfGames= (RoundNumber*2)+1;
         theGui.addReport("\nRound "+roundNumber +". This round the matches are " + numberOfGames + " games each.");
@@ -34,7 +35,7 @@ public class Round {
      * @param masterList PlayersList - master list of all players in the tournament
      * @return PlayersList - list of players for the next round
      **/
-     public PlayersList doPairing(tt_gui theGui,PlayersList thePlayers, PlayersList masterList){
+    PlayersList doPairing(tt_gui theGui, PlayersList thePlayers, PlayersList masterList){
         int numPlayers = thePlayers.getTotalPlayers();
 
         int numByes= thePlayers.getNumberOfByes();
@@ -63,15 +64,10 @@ public class Round {
                 //also we screen out the dummy players from the player1 selection
                 //to avoid having two dummy players drawn against each other
                 player1 = (int) (Math.random() * thePlayers.getSize() );
-
-                if (!thePlayers.playersList.get(player1).isActive()) {
-                } else {
-                    if (thePlayers.playersList.get(player1).getRoundReached() == this.roundNumber) {
-                    } else {
+                if (thePlayers.playersList.get(player1).isActive()) {
+                    if (!(thePlayers.playersList.get(player1).getRoundReached() == this.roundNumber)) {
                         //don't allow dummy player in the player1 slot.  this stops dummy players being drawn against each other.
-                        if (thePlayers.playersList.get(player1).isDummy()){
-                        }
-                        else {
+                        if (!(thePlayers.playersList.get(player1).isDummy())){
                             //player has been checked and is usable.  Set the round reached so that it isn't chosen again this round.
                             goodChoice1 = true;
                             Player myPlayer = thePlayers.playersList.get(player1);
@@ -93,23 +89,13 @@ public class Round {
                 //the active check is a quick way of showing if the selected player has already been eliminated.
                 //actually the roundReached also shows if the player has already played in this round
                 //but left it in in case we want to use it for, say, recording an injured player who doesn't lose but still can't play
-                if (!thePlayers.playersList.get(player2).isActive())
-                {
-                }
-                else
-                {
-                    if (thePlayers.playersList.get(player2).getRoundReached() == this.roundNumber)
-                    {
-                    }
-                    else
+                if (thePlayers.playersList.get(player2).isActive()) {
+                    if (!(thePlayers.playersList.get(player2).getRoundReached() == this.roundNumber))
                     {
                         //if the number of pairs left to match is the same as the number of dummy players left to allocate then need a dummy in all of the rest of the pairings
                         //otherwise we will end up with 2 dummies left and they can't play each other since neither can be player1
                         //causes a perpetual loop
-                        if ((numPairs - countPairs == numByes - countByes) && !thePlayers.playersList.get(player2).isDummy())
-                        {
-                        }
-                        else
+                        if (! ((numPairs - countPairs == numByes - countByes) && !thePlayers.playersList.get(player2).isDummy()))
                         {
                             //a valid player - set their round reached
                             goodChoice2 = true;
@@ -127,26 +113,24 @@ public class Round {
             }
             ///Add 1 to the local count of pairs created
             countPairs++;
-            //System.out.println("Pairing "+ countPairs + " Picked players "+ player1 + " and "+ player2);
-            theGui.addReport("Match "+ countPairs + ": " + thePlayers.playersList.get(player1).getFirstName() + " " + thePlayers.playersList.get(player1).getLastName() +" vs "+ thePlayers.playersList.get(player2).getFirstName() + " " + thePlayers.playersList.get(player2).getLastName());
-            //System.out.println("Count of Pairs is now " + countPairs);
+
 
             //need to declare the match here because a different object will be instantiated depending on whether
             //there is a dummy player drawn for the match
             Match theMatch;
             if (thePlayers.playersList.get(player2).isDummy()){
+                theGui.addReport("Match "+ countPairs + ": " + thePlayers.playersList.get(player1).getFirstName() + " " + thePlayers.playersList.get(player1).getLastName());
                 //use the fixed match child class so that the match is not played
                 //player1 gets a bye
                  theMatch = new FixedMatch(theGui,thePlayers.playersList.get(player1),thePlayers.playersList.get(player2));
             }
             else {
                 //2 ordinary players - run a proper match for them.  The number of games in a match can be variable if required
+                 theGui.addReport("Match "+ countPairs + ": " + thePlayers.playersList.get(player1).getFirstName() + " " + thePlayers.playersList.get(player1).getLastName() +" vs "+ thePlayers.playersList.get(player2).getFirstName() + " " + thePlayers.playersList.get(player2).getLastName());
                  theMatch = new Match(theGui,thePlayers.playersList.get(player1), thePlayers.playersList.get(player2), numberOfGames);
             }
 
-
-            //Set statuses for the players
-            //Should this be in the match class?
+            //find out the winner and the games scores
             int player1gamesWon,player2gamesWon;
             Player theWinner = theMatch.determineWinner(theGui);
 
@@ -161,6 +145,7 @@ public class Round {
             //System.out.println("Player going through to next round is " + thePlayers.playersList.indexOf(theWinner));
 
             //Map the winner and loser to player1 and player2
+            //feels v clumsy but it does what we want
             Player theLoser;
             if ( iWinner==player1) {
                 theLoser = theMatch.getPlayer2();
@@ -174,27 +159,21 @@ public class Round {
             }
 
             //Set the round reached in the master list for the player who lost
-            //System.out.println("Player being knocked out is " + thePlayers.playersList.indexOf(theLoser));
             masterList.SetLoser(masterList,theLoser,this.roundNumber);
             //keep a running total of games won in the master list so we can report on it at the end
             masterList.AddGamesWon(masterList,theWinner,theWinnerGamesWon);
             masterList.AddGamesWon(masterList,theLoser,theLoserGamesWon);
-
-            //System.out.println("The player " + theWinner.getFirstName() + " " + theWinner.getLastName() + " won the match ");
-            //System.out.println("The player " + theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home ");
+            //don't print the going home message if this is a dummy player
             if (!theLoser.isDummy()) {
                 theGui.addReport(theLoser.getFirstName() + " " + theLoser.getLastName() + " is going home.");
             }
 
-            //Set the loser to be inactive - this stops them being selected
+            //Set the loser to be inactive - this stops them being selected again in this round
             theLoser.setActive(false);
 
             //Add the winner to the list for the next round
             thisRoundWinners.addPlayer(theWinner);
          }
-
-        System.out.println("so now we have " + thisRoundWinners.getSize());
-
         return thisRoundWinners;
     }
 
