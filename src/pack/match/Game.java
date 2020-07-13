@@ -43,7 +43,7 @@ class Game {
 
         //toss a coin to decide who wins the point
         while (pointCounter < pointsMax) {
-            //int coin = tossCoin();
+
             int coin = tossCoin(2);
             if (coin ==1) {
                 player1Points++;
@@ -67,7 +67,7 @@ class Game {
         }
     }
     /**
-     * tossCoin - generates a random number < 1 and rounds it.  Returns the result cast to an int.
+     * tossCoin - generates a random number less than 1 and rounds it.  Returns the result cast to an int.
      * 1 is a point for player1, 0 is a point for player2
      */
 

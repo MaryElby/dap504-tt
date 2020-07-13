@@ -5,8 +5,7 @@ package pack.player;
 public class Player {
 //make all the attributes private so they can only be accessed with getters/setters/methods in this class (Encapsulation)
     private String firstName,lastName;
-    //private int playerID =0;   //need to be able to match players in master list to players in round list
-    private long playerID ;   //need to be able to match players in master list to players in round list
+    private final int playerID ;   //need to be able to match players in master list to players in round list
     private boolean active=true; //every player starts as active
     private int roundReached=0; //every player starts at round 0
     private int gamesWon=0; //every player starts with 0 games won
@@ -94,8 +93,8 @@ public class Player {
      @param lastName string
      @param id  int
      **/
-    //public Player(String firstName, String lastName, int id) {
-public Player(String firstName, String lastName, long id) {
+
+public Player(String firstName, String lastName, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.playerID = id;
@@ -108,7 +107,7 @@ public Player(String firstName, String lastName, long id) {
      The different method signature is what the program uses to decide which constructor to use
      *
      * @param id int*/
-    public Player(long id) {
+    public Player(int id) {
 
         this.firstName="Bye";
         this.lastName="Bye";

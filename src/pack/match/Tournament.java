@@ -14,8 +14,8 @@ public class Tournament extends AbstractTournament {
     private int numRounds;
     private final double prizePot;
     private String prize;
-    private int numPlayers;
-    private int numByes;
+    private final int numPlayers;
+    private final int numByes;
 
 
 
@@ -27,41 +27,6 @@ public class Tournament extends AbstractTournament {
         return numByes;
     }
 
-    /**
-     * constructor
-     * create a tournament for given number of players with given prize pot
-     * @param theGui tt_gui the instance of the GUI that owns the match report text.  For posting the tournament feedback to the gui.
-     * @param numberOfPlayers int - number of real players who want to play in the tournament
-     * @param prizePot double - the prize fund (if there is one)
-     * @param otherPrize string - non-cash prize (if there is one)
-     */
-
-        public Tournament(tt_gui theGui, int numberOfPlayers, double prizePot, String otherPrize) {
-        this.numByes = calcNumberOfByes(numberOfPlayers);
-
-        this.numPlayers = numberOfPlayers;
-        this.numRounds = setNumberOfRounds(numPlayers+numByes);
-        this.prizePot = prizePot;
-        theGui.startReport("Tournament Started!");
-            try {
-                this.prize = otherPrize.trim();
-
-                    if (this.prize.contentEquals("") ) {
-                        theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
-                    }
-                    else
-                    {
-                        theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot) + " and " + this.prize);
-                    }
-            }
-            catch (NullPointerException e){
-                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
-            }
-
-            theGui.addReport("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
-
-
-    }
 
     /**
      * work out how many rounds are needed based on the number of players
@@ -88,8 +53,9 @@ public class Tournament extends AbstractTournament {
      * @param numberOfPlayers int - number of real players
      * @return numByes int - calculated number of dummy players needed
      */
-    //private int calcNumberOfByes(int numberOfPlayers){
-    private int calcNumberOfByes(long numberOfPlayers){
+
+    @Override
+    int calcNumberOfByes(int numberOfPlayers){
         //start at 1 and keep doubling until counter > numberOfPlayers.
         //then the number of byes needed is counter - numberOfPlayers
      int numByes=0;
@@ -140,5 +106,41 @@ public class Tournament extends AbstractTournament {
         theMasterList.writePlayersResults(theGui,false, theMasterList);
 
     }
+    /**
+     * constructor
+     * create a tournament for given number of players with given prize pot
+     * @param theGui tt_gui the instance of the GUI that owns the match report text.  For posting the tournament feedback to the gui.
+     * @param numberOfPlayers int - number of real players who want to play in the tournament
+     * @param prizePot double - the prize fund (if there is one)
+     * @param otherPrize string - non-cash prize (if there is one)
+     */
+
+    public Tournament(tt_gui theGui, int numberOfPlayers, double prizePot, String otherPrize) {
+        this.numByes = calcNumberOfByes(numberOfPlayers);
+
+        this.numPlayers = numberOfPlayers;
+        this.numRounds = setNumberOfRounds(numPlayers+numByes);
+        this.prizePot = prizePot;
+        theGui.startReport("Tournament Started!");
+        try {
+            this.prize = otherPrize.trim();
+
+            if (this.prize.contentEquals("") ) {
+                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
+            }
+            else
+            {
+                theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot) + " and " + this.prize);
+            }
+        }
+        catch (NullPointerException e){
+            theGui.addReport(numRounds + " rounds.  Total prize = " + NumberFormat.getCurrencyInstance().format(prizePot));
+        }
+
+        theGui.addReport("Player count = " + numberOfPlayers + ". Number of byes needed=" + numByes);
+
+
+    }
+
 }
 

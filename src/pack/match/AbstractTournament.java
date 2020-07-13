@@ -14,7 +14,7 @@ public abstract class AbstractTournament {
     private double prizePot;
 
     /**
-     Abstract method signature ensures that every Tournament created sets its number of rounds.
+     Abstract method signatures ensure that every Tournament created sets its number of rounds and byes.
      this could be different depending on what type of tournament it is
      so every tournament can have its own unique method but they must implement it.
      for example a doubles tournament would have a different number of rounds than singles with the same number of players
@@ -22,6 +22,7 @@ public abstract class AbstractTournament {
      @return numberOfRounds - the number of rounds needed based on the total number of players
      */
     abstract int setNumberOfRounds(int numberOfPlayers);
+    abstract  int calcNumberOfByes(int numberOfPlayers);
 
     /**
     a concrete method to present the entire prize fund to the winner.  This could be overridden if different prize allocation is required.

@@ -94,7 +94,7 @@ public class tt_gui {
                    }
 
                } catch (NumberFormatException e3) {
-                    if (txtNumPlayers.getText().equals("")) {
+                    if (txtNumPlayers.getText().trim().equals("")) {
                         //set default to 64 and run the validation again for other input fields
                         //if they are ok we can go ahead with the tournament
                         numPlayers = 64;
